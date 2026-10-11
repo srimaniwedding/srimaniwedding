@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#800000">
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Wedding Invite">
+
+
+<title>N.Srinithi & T.Maniarasan - You're Invited</title>
+<meta property="og:title" content="N.Srinithi & T.Maniarasan - You're Invited">
+<meta property="og:description" content="Join us in celebrating our wedding!">
+
+<meta property="og:image" content="https://srimaniwedding.vercel.app/cover-og.jpg">
+<meta property="og:url" content="https://srimaniwedding.vercel.app/">
+
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  html,body{margin:0;padding:0;height:100%;background:#000;font-family:Arial,sans-serif;overflow:hidden}
+  html{height:-webkit-fill-available}
+  body{min-height:100dvh;min-height:-webkit-fill-available}
+  #home{position:fixed;inset:0;background:#3a2a1a url('door-poster.jpg') center/cover no-repeat;z-index:30;opacity:1;transition:opacity 0.6s ease}
+  #home.hide{opacity:0;pointer-events:none}
+  #doorVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity.4s}
+  #doorVideo.ready{opacity:1}
+  #openBtn{position:absolute;top:52%;left:52%;transform:translate(-50%,-50%);width:120px;height:120px;border-radius:50%;border:none;cursor:pointer;z-index:2;background:radial-gradient(circle at 30% 30%, #ffefb0, #f5c542 40%, #b8912a 100%);box-shadow:0 8px 20px rgba(0,0,0,.5);font-weight:bold;color:#5a4210}
+  #welcomeStage{position:fixed;inset:0;background:#000;z-index:20;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity 0.6s ease}
+  #welcomeStage.show{display:flex;opacity:1}
+  #welcomeStage.fadeOut{opacity:0}
+  #welcomeCrop{position:fixed;inset:0;width:100vw;height:100dvh;min-height:-webkit-fill-available;background:#000;overflow:hidden;border-radius:0;max-width:none;aspect-ratio:auto}
+  #welcomeCrop video{position:absolute;inset:0;width:100vw;height:100dvh;min-height:-webkit-fill-available;object-fit:cover;object-position:center center;transform:none;background:#000}
+  #eventPage{position:fixed;inset:0;width:100%;height:100dvh;min-height:-webkit-fill-available;overflow-y:auto;overflow-x:hidden;display:none;background:#fffaf0;opacity:0;transition:opacity 0.6s ease;z-index:10;-webkit-overflow-scrolling:touch}
+  #eventPage.show{display:block}
+  #eventPage.visible{opacity:1}
+.btn{background:#800000;color:#fff;padding:12px 25px;border-radius:25px;border:none;cursor:pointer}
+  #sparkCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:9999}
+  #scratchHint{transition:opacity 0.4s}
+  #scratchHint.hide{opacity:0}
+</style>
+</head>
+<body>
+<audio id="bgm" src="sample.mp3" loop preload="auto"></audio>
+<button id="muteBtn" style="position:fixed;top:10px;right:10px;z-index:9999;width:36px;height:36px;border-radius:50%;border:1px solid #D4AF37;background:rgba(0,0,0,0.5);color:#D4AF37;cursor:pointer;">🔊</button>
+
+<div id="home">
+  <video id="doorVideo" src="door-open.mp4" muted playsinline preload="auto"></video>
+  <button id="openBtn">OPEN</button>
+</div>
+
+<div id="welcomeStage">
+  <div id="welcomeCrop"><video id="welcomeVideo" src="ketimelam.mp4" playsinline preload="auto"></video></div>
+</div>
+
+<div id="eventPage">
+  <div style="text-align:center;padding:20px;padding-bottom:80px;">
+    <div id="video-wrapper" style="position:relative;width:100%;max-width:520px;margin:0 auto;overflow:hidden;border-radius:12px;background:#fffaf0;padding:0 26px 26px 26px;box-sizing:border-box;">
+      <video autoplay muted loop playsinline style="width:100%;display:block;transform:scale(1.18);transform-origin:center;object-fit:cover;border-radius:12px;"><source src="envelope.mp4" type="video/mp4"></video>
+      <div style="position:absolute;top:40%;left:49%;transform:translate(-50%,-50%);width:45%;aspect-ratio:300/270;">
+        <div style="position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;font-size:clamp(14px,3.5vw,20px);font-weight:bold;color:#FFFF00;padding-right:7%;padding-top:46%;">11<sup style="font-size:0.55em;vertical-align:super;position:relative;top:-4px;margin-left:1px;text-transform:lowercase;">th</sup>&nbsp;Nov 2026</div>
+        <canvas id="scratch-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;touch-action:none;"></canvas>
+        <canvas id="dissolve-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></canvas>
+      </div>
+      <div id="scratchHint" style="position:absolute;top:45%;left:50%;transform:translate(-50%,-50%);width:90%;pointer-events:none;text-align:center;line-height:1.4;">
+        <div style="margin:0;font-size:13px;color:#F2EFE9;font-weight:bold;letter-spacing:1px;">SCRATCH</div>
+        <div style="margin:6px 0 0 0;font-size:13px;color:#F2EFE9;font-weight:bold;letter-spacing:1px;">HERE</div>
+      </div>
+    </div>
+    <br><br>
+    <div style="max-width:520px;margin:0 auto;"><video autoplay muted loop playsinline style="width:100%;border-radius:12px;display:block;background:#000;"><source src="uppu-sakarai.mp4" type="video/mp4"></video></div><br>
+    <div style="max-width:520px;margin:0 auto;"><video autoplay muted loop playsinline style="width:100%;border-radius:12px;display:block;background:#000;"><source src="nalangu.mp4" type="video/mp4"></video></div><br>
+    <div style="max-width:520px;margin:0 auto;"><video autoplay muted loop playsinline style="width:100%;border-radius:12px;display:block;background:#000;"><source src="mappillai-azhaippu.mp4" type="video/mp4"></video></div><br>
+    <div style="max-width:520px;margin:0 auto;"><video autoplay muted loop playsinline style="width:100%;border-radius:12px;display:block;background:#000;"><source src="reception.mp4" type="video/mp4"></video></div><br>
+    <div style="max-width:520px;margin:0 auto;"><video autoplay muted loop playsinline style="width:100%;border-radius:12px;display:block;background:#000;"><source src="muhurtham.mp4" type="video/mp4"></video></div><br>
+
+    <div style="margin-top:50px;max-width:520px;margin:0 auto;text-align:center;">
+      <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">Location</h3>
+      <p style="margin-bottom:15px;font-size:16px;">Pon Thamarai Mahal,<br>Erode to Muthur Main Road, Ellakadai,<br>Tamil Nadu 638109</p>
+      <div style="border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.15);"><iframe src="https://www.google.com/maps?q=Pon+Thamarai+Mahal,+Erode+to+Muthur+Main+Road,+Ellakadai,+Tamil+Nadu+638109&output=embed" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
+      <a href="https://www.google.com/maps/search/?api=1&query=Pon+Thamarai+Mahal+Erode+to+Muthur+Main+Road+Ellakadai+Tamil+Nadu+638109" target="_blank" style="display:inline-block;margin-top:15px;padding:12px 25px;background:#800000;color:#fff;text-decoration:none;border-radius:25px;font-size:16px;">📍 Get Directions</a>
+    </div>
+
+    <div class="section" id="rsvp" style="background:#FFFAF0;padding:40px 24px;margin-top:40px;border-radius:12px;max-width:520px;margin-left:auto;margin-right:auto;">
+      <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">We are so excited to celebrate this new chapter with you!</h3>
+      <h2 style="margin-bottom:8px;">RSVP</h2>
+      <p style="margin-bottom:20px;">Kindly respond by 1<sup>st</sup> Nov 2026</p>
+      <form id="rsvpForm" style="max-width:340px;margin:0 auto;text-align:left;">
+        <label>Name *</label><br><input type="text" name="name" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
+        <label>City *</label><br><input type="text" name="city" placeholder="City" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
+        <label>No. of Guests</label><br><input type="number" name="guests" min="1" max="10" value="1" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
+        <label>Events Attending</label><br><div style="margin:8px 0 16px;"><label><input type="checkbox" name="events" value="Reception"> Reception (10 Nov)</label><br><label><input type="checkbox" name="events" value="Muhurtham"> Muhurtham (11 Nov)</label><br></div>
+        <label>Blessings / Message</label><br><textarea name="message" rows="3" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"></textarea><br>
+        <button type="submit" class="btn" style="width:100%;">Send RSVP</button>
+        <p id="rsvpMsg" style="text-align:center;margin-top:12px;display:none;color:green;">Thank you! Your response has been recorded.</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<canvas id="sparkCanvas"></canvas>
+
+<script>
+const bgm=document.getElementById('bgm');
+bgm.volume = 0.3;
+bgm.loop = true;
+bgm.preload = "auto";
+
+const doorVideo=document.getElementById('doorVideo');
+const welcomeStage=document.getElementById('welcomeStage');
+const welcomeVideo=document.getElementById('welcomeVideo');
+const home=document.getElementById('home');
+const eventPage=document.getElementById('eventPage');
+const openBtn=document.getElementById('openBtn');
+
+doorVideo.addEventListener('canplay',()=>doorVideo.classList.add('ready'),{once:true}); doorVideo.load();
+
+function goFullScreen(){
+  try{
+    if(document.documentElement.requestFullscreen){
+      document.documentElement.requestFullscreen().catch(()=>{});
+    } else if(document.documentElement.webkitRequestFullscreen){
+      document.documentElement.webkitRequestFullscreen();
+    }
+  }catch(e){}
+  setTimeout(()=>{ window.scrollTo(0,1); },150);
+}
+
+let doorDone=false;
+function showWelcome(){
+  if(doorDone) return; doorDone=true;
+  home.classList.add('hide');
+  setTimeout(()=>home.style.display='none',600);
+  welcomeStage.classList.add('show');
+  requestAnimationFrame(()=>welcomeStage.style.opacity='1');
+  welcomeVideo.currentTime=0;
+  welcomeVideo.muted=bgm.muted;
+  welcomeVideo.volume=0.3;
+  welcomeVideo.play().catch(()=>{welcomeVideo.muted=true; welcomeVideo.play();});
+}
+function showEvent(){
+  if(window._shown) return; window._shown=true;
+  eventPage.classList.add('show');
+  document.body.style.overflow='auto';
+  document.documentElement.style.overflow='auto';
+  void eventPage.offsetWidth;
+  eventPage.classList.add('visible');
+  window.scrollTo(0,1);
+  setTimeout(()=>{ window.scrollTo(0,1); },300);
+  setTimeout(initScratch,100);
+  setTimeout(()=>{ welcomeStage.classList.add('fadeOut'); },50);
+  setTimeout(()=>{ welcomeStage.style.display='none'; },700);
+}
+
+openBtn.addEventListener('click',()=>{
+  goFullScreen();
+  bgm.volume = 0.3;
+  bgm.loop = true;
+  bgm.play().then(()=>{ bgm.muted=false; bgm.volume=0.3; }).catch(()=>{});
+  openBtn.style.display='none';
+  doorVideo.muted=false;
+  doorVideo.currentTime=0;
+  doorVideo.play().catch(()=>{});
+  setTimeout(showWelcome,4300);
+});
+welcomeVideo.addEventListener('ended',showEvent);
+
+document.getElementById('muteBtn').addEventListener('click',function(e){
+  e.stopPropagation();
+  bgm.muted=!bgm.muted;
+  if(!bgm.muted) bgm.volume = 0.3;
+  this.textContent=bgm.muted?'🔇':'🔊';
+  welcomeVideo.muted=bgm.muted;
+});
+
+let lastScroll=0;
+document.getElementById('eventPage').addEventListener('scroll',()=>{
+  const st = eventPage.scrollTop;
+  if(st > 100 && st > lastScroll){
+    window.scrollTo(0,1);
+  }
+  lastScroll = st;
+});
+
+let scratchInited=false;
+function initScratch(){
+  if(scratchInited) return; scratchInited=true;
+  const canvas=document.getElementById('scratch-card');
+  const dCanvas=document.getElementById('dissolve-card');
+  const sparkCanvas=document.getElementById('sparkCanvas');
+  const hintEl=document.getElementById('scratchHint');
+  const spCtx=sparkCanvas.getContext('2d'); const dCtx=dCanvas.getContext('2d'); const ctx=canvas.getContext('2d',{willReadFrequently:true});
+  function drawHeart(c, alpha=1){
+    c.save(); c.globalAlpha=alpha; c.globalCompositeOperation='source-over'; c.fillStyle='#e60000';
+    c.beginPath(); c.moveTo(150,265); c.bezierCurveTo(5,155,25,20,150,75); c.bezierCurveTo(275,20,295,155,150,265); c.fill(); c.restore();
+  }
+  drawHeart(ctx,1);
+  let isDrawing=false,startTime=0,revealed=false,particles=[];
+  function resizeSpark(){sparkCanvas.width=innerWidth*2;sparkCanvas.height=innerHeight*2;sparkCanvas.style.width=innerWidth+'px';sparkCanvas.style.height=innerHeight+'px';}
+  resizeSpark(); addEventListener('resize',resizeSpark);
+  function getPos(e){const r=canvas.getBoundingClientRect();const x=(e.touches?e.touches[0].clientX:e.clientX);const y=(e.touches?e.touches[0].clientY:e.clientY);return{x:(x-r.left)*(300/r.width),y:(y-r.top)*(270/r.height)};}
+  function checkProgress(){const img=ctx.getImageData(0,0,300,270);let c=0,t=0;for(let i=3;i<img.data.length;i+=16){t++;if(img.data[i]<20)c++;}return c/t;}
+  function createDissolve(){particles=[];for(let i=0;i<55;i++)particles.push({x:90+Math.random()*120,y:60+Math.random()*140,vx:(Math.random()-0.5)*5,vy:-(Math.random()*6+1.5),size:Math.random()*8+5,a:1,rot:Math.random()*60-30,vr:(Math.random()-0.5)*6,color:`hsl(${Math.random()*12+38},100%,${55+Math.random()*15}%)`,delay:Math.random()*0.25});}
+  function animateDissolve(){dCtx.clearRect(0,0,300,270);let alive=0;particles.forEach(p=>{if(p.delay>0){p.delay-=0.02;alive++;return;}p.x+=p.vx;p.y+=p.vy;p.vy+=0.08;p.vx*=0.99;p.a-=0.011;p.rot+=p.vr*0.1;if(p.a>0){alive++;dCtx.globalAlpha=p.a;dCtx.save();dCtx.translate(p.x,p.y);dCtx.rotate(p.rot*Math.PI/180);dCtx.fillStyle=p.color;dCtx.shadowBlur=8;dCtx.shadowColor=p.color;dCtx.beginPath();const s=p.size;dCtx.moveTo(0,s*0.3);dCtx.bezierCurveTo(-s*0.5,-s*0.3,-s*0.7,s*0.2,0,s*0.6);dCtx.bezierCurveTo(s*0.7,s*0.2,s*0.5,-s*0.3,0,s*0.3);dCtx.fill();dCtx.restore();}});dCtx.globalAlpha=1;if(alive>0)requestAnimationFrame(animateDissolve);else dCtx.clearRect(0,0,300,270);}
+  function launchSparks(){const rect=canvas.getBoundingClientRect();const cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;const sparks=[];for(let i=0;i<200;i++){const ang=Math.random()*Math.PI*2,speed=Math.random()*16+4;sparks.push({x:cx,y:cy,vx:Math.cos(ang)*speed,vy:Math.sin(ang)*speed-Math.random()*2,life:1,decay:Math.random()*0.014+0.008,color:`hsl(${Math.random()*20+35},100%,60%)`,size:Math.random()*3+1.2});}const start=performance.now();function frame(now){const e=now-start;spCtx.clearRect(0,0,sparkCanvas.width,sparkCanvas.height);sparks.forEach(s=>{s.x+=s.vx;s.vx*=0.99;s.y+=s.vy;s.vy+=0.14;s.life-=s.decay;if(s.life>0){spCtx.globalAlpha=s.life;spCtx.fillStyle=s.color;spCtx.beginPath();spCtx.arc(s.x*2,s.y*2,s.size*s.life*3,0,Math.PI*2);spCtx.fill();}});if(e<2000)requestAnimationFrame(frame);else spCtx.clearRect(0,0,sparkCanvas.width,sparkCanvas.height);}requestAnimationFrame(frame);}
+  function scratch(e){if(!isDrawing||revealed) return;e.preventDefault();if(!startTime)startTime=Date.now();const pos=getPos(e);ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(pos.x,pos.y,30,0,Math.PI*2);ctx.fill();const prog=checkProgress(),elapsed=Date.now()-startTime;if((prog>0.26&&elapsed>650)||elapsed>1700||prog>0.42){if(!revealed){revealed=true;if(hintEl){hintEl.classList.add('hide');setTimeout(()=>hintEl.style.display='none',400);}createDissolve();animateDissolve();let fade=1;const f=setInterval(()=>{fade-=0.10;ctx.clearRect(0,0,300,270);if(fade>0){drawHeart(ctx,fade);}else{clearInterval(f);ctx.clearRect(0,0,300,270);}},35);setTimeout(launchSparks,380);}}}
+  canvas.addEventListener('mousedown',e=>{isDrawing=true;scratch(e);}); canvas.addEventListener('mouseup',()=>isDrawing=false); canvas.addEventListener('mouseleave',()=>isDrawing=false); canvas.addEventListener('mousemove',scratch);
+  canvas.addEventListener('touchstart',e=>{isDrawing=true;scratch(e);},{passive:false}); canvas.addEventListener('touchmove',scratch,{passive:false}); canvas.addEventListener('touchend',()=>isDrawing=false);
+}
+
+document.getElementById('rsvpForm').addEventListener('submit', async(e)=>{
+  e.preventDefault();
+  const f=new FormData(e.target);
+  const data={name:f.get('name'), city:f.get('city'), guests:f.get('guests'), events:f.getAll('events').join(', '), message:f.get('message')};
+  await fetch('https://script.google.com/macros/s/AKfycbyQm0ewRL3ROpYSZ_wt_dB5rZyzcVa9PXbgpESqM_LBn50HJC5IlYgMW1qTo-M6G5yk0g/exec',{method:'POST', mode:'no-cors', body:JSON.stringify(data)});
+  document.getElementById('rsvpMsg').style.display='block';
+  e.target.reset();
+  setTimeout(()=>document.getElementById('rsvpMsg').style.display='none',4000);
+});
+
+// PWA Service Worker
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('./sw.js').then(()=>console.log('PWA ready')).catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
