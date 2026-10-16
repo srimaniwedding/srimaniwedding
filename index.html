@@ -7,31 +7,16 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#800000">
-
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Wedding Invite">
-
-
 <title>N.Srinithi & T.Maniarasan - You're Invited</title>
-<!-- <meta property="og:title" content="N.Srinithi & T.Maniarasan - You're Invited">
-<meta property="og:description" content="Join us in celebrating our wedding!">
-
-<meta property="og:image" content="https://srimaniwedding.vercel.app/cover-og.jpg">
-<meta property="og:url" content="https://srimaniwedding.vercel.app/">
-
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">-->
-
 <meta property="og:title" content="You're Invited - Srimani Wedding">
 <meta property="og:description" content="Join us to celebrate love, family, and new beginnings.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://srimaniwedding.vercel.app/">
 <meta property="og:image" content="https://srimaniwedding.vercel.app/cover-new.jpg?v=2">
-
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
@@ -52,10 +37,52 @@
   #eventPage{position:fixed;inset:0;width:100%;height:100dvh;min-height:-webkit-fill-available;overflow-y:auto;overflow-x:hidden;display:none;background:#fffaf0;opacity:0;transition:opacity 0.6s ease;z-index:10;-webkit-overflow-scrolling:touch}
   #eventPage.show{display:block}
   #eventPage.visible{opacity:1}
-.btn{background:#800000;color:#fff;padding:12px 25px;border-radius:25px;border:none;cursor:pointer}
+ .btn{background:#800000;color:#fff;padding:12px 25px;border-radius:25px;border:none;cursor:pointer}
   #sparkCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:9999}
   #scratchHint{transition:opacity 0.4s}
   #scratchHint.hide{opacity:0}
+
+  /* === FLORAL BORDER FIX === */
+ .floral-side {
+    position: fixed; top: 0; width: 55px; height: 100vh;
+    background: url('floral-border.png'); background-repeat: repeat-y; background-size: contain;
+    z-index: 999; pointer-events: none;
+    animation: sway 4s ease-in-out infinite;
+  }
+ .floral-left { left: 0; }
+ .floral-right { right: 0; animation-delay: 0.5s; }
+  @keyframes sway {
+    0%, 100% { transform: translateY(0) rotate(-1deg); }
+    50% { transform: translateY(6px) rotate(1deg); }
+  }
+ .main-wrapper {
+    text-align:center; padding:20px 75px 80px 75px;
+    box-sizing: border-box;
+  }
+ .video-box {
+    max-width:460px; margin:0 auto 20px auto;
+  }
+ .video-box video {
+    width:100%; border-radius:12px; display:block; background:#000;
+  }
+ .petals {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 1000; overflow: hidden;
+  }
+ .petal {
+    position: absolute; top: -20px;
+    font-size: 18px;
+    animation: fall linear forwards;
+  }
+  @keyframes fall {
+    0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) translateX(80px) rotate(360deg); opacity: 0; }
+  }
+  @media (max-width: 768px) {
+   .floral-side { width: 36px; }
+   .main-wrapper { padding: 15px 46px 80px 46px; }
+   .video-box { max-width: 100%; }
+  }
 </style>
 </head>
 <body>
@@ -72,9 +99,15 @@
 </div>
 
 <div id="eventPage">
-  <div style="text-align:center;padding:20px;padding-bottom:80px;">
+  <!-- Floral Side Borders -->
+  <div class="floral-side floral-left"></div>
+  <div class="floral-side floral-right"></div>
+  <!-- Falling Petals -->
+  <div class="petals" id="petals"></div>
+
+  <div class="main-wrapper">
     <div id="video-wrapper" style="position:relative;width:100%;max-width:520px;margin:0 auto;overflow:hidden;border-radius:12px;background:#fffaf0;padding:0 26px 26px 26px;box-sizing:border-box;">
-<br><br>
+      <br><br>
       <video autoplay muted loop playsinline style="width:100%;display:block;transform:scale(1.18);transform-origin:center;object-fit:cover;border-radius:12px;"><source src="envelope.mp4" type="video/mp4"></video>
       <div style="position:absolute;top:45%;left:47%;transform:translate(-50%,-50%);width:45%;aspect-ratio:300/270;">
         <div style="position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;font-size:clamp(14px,3.5vw,20px);font-weight:bold;color:#FFFF00;padding-right:7%;padding-top:46%;">11<sup style="font-size:0.55em;vertical-align:super;position:relative;top:-4px;margin-left:1px;text-transform:lowercase;">th</sup>&nbsp;Nov 2026</div>
@@ -87,11 +120,11 @@
       </div>
     </div>
     <br><br>
-    <div style="max-width:520px;margin:0 auto;"><video autoplay muted loop playsinline style="width:100%;border-radius:12px;display:block;background:#000;"><source src="uppu-sakarai.mp4" type="video/mp4"></video></div><br>
-    <div style="max-width:520px;margin:0 auto;"><video autoplay muted loop playsinline style="width:100%;border-radius:12px;display:block;background:#000;"><source src="nalangu.mp4" type="video/mp4"></video></div><br>
-    <div style="max-width:520px;margin:0 auto;"><video autoplay muted loop playsinline style="width:100%;border-radius:12px;display:block;background:#000;"><source src="mappillai-azhaippu.mp4" type="video/mp4"></video></div><br>
-    <div style="max-width:520px;margin:0 auto;"><video autoplay muted loop playsinline style="width:100%;border-radius:12px;display:block;background:#000;"><source src="reception.mp4" type="video/mp4"></video></div><br>
-    <div style="max-width:520px;margin:0 auto;"><video autoplay muted loop playsinline style="width:100%;border-radius:12px;display:block;background:#000;"><source src="muhurtham.mp4" type="video/mp4"></video></div><br>
+    <div class="video-box"><video autoplay muted loop playsinline><source src="uppu-sakarai.mp4" type="video/mp4"></video></div>
+    <div class="video-box"><video autoplay muted loop playsinline><source src="nalangu.mp4" type="video/mp4"></video></div>
+    <div class="video-box"><video autoplay muted loop playsinline><source src="mappillai-azhaippu.mp4" type="video/mp4"></video></div>
+    <div class="video-box"><video autoplay muted loop playsinline><source src="reception.mp4" type="video/mp4"></video></div>
+    <div class="video-box"><video autoplay muted loop playsinline><source src="muhurtham.mp4" type="video/mp4"></video></div>
 
     <div style="margin-top:50px;max-width:520px;margin:0 auto;text-align:center;">
       <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">Location</h3>
@@ -124,16 +157,13 @@ const bgm=document.getElementById('bgm');
 bgm.volume = 0.3;
 bgm.loop = true;
 bgm.preload = "auto";
-
 const doorVideo=document.getElementById('doorVideo');
 const welcomeStage=document.getElementById('welcomeStage');
 const welcomeVideo=document.getElementById('welcomeVideo');
 const home=document.getElementById('home');
 const eventPage=document.getElementById('eventPage');
 const openBtn=document.getElementById('openBtn');
-
 doorVideo.addEventListener('canplay',()=>doorVideo.classList.add('ready'),{once:true}); doorVideo.load();
-
 function goFullScreen(){
   try{
     if(document.documentElement.requestFullscreen){
@@ -144,7 +174,6 @@ function goFullScreen(){
   }catch(e){}
   setTimeout(()=>{ window.scrollTo(0,1); },150);
 }
-
 let doorDone=false;
 function showWelcome(){
   if(doorDone) return; doorDone=true;
@@ -170,7 +199,6 @@ function showEvent(){
   setTimeout(()=>{ welcomeStage.classList.add('fadeOut'); },50);
   setTimeout(()=>{ welcomeStage.style.display='none'; },700);
 }
-
 openBtn.addEventListener('click',()=>{
   goFullScreen();
   bgm.volume = 0.3;
@@ -183,7 +211,6 @@ openBtn.addEventListener('click',()=>{
   setTimeout(showWelcome,4300);
 });
 welcomeVideo.addEventListener('ended',showEvent);
-
 document.getElementById('muteBtn').addEventListener('click',function(e){
   e.stopPropagation();
   bgm.muted=!bgm.muted;
@@ -191,7 +218,6 @@ document.getElementById('muteBtn').addEventListener('click',function(e){
   this.textContent=bgm.muted?'🔇':'🔊';
   welcomeVideo.muted=bgm.muted;
 });
-
 let lastScroll=0;
 document.getElementById('eventPage').addEventListener('scroll',()=>{
   const st = eventPage.scrollTop;
@@ -200,7 +226,6 @@ document.getElementById('eventPage').addEventListener('scroll',()=>{
   }
   lastScroll = st;
 });
-
 let scratchInited=false;
 function initScratch(){
   if(scratchInited) return; scratchInited=true;
@@ -226,7 +251,6 @@ function initScratch(){
   canvas.addEventListener('mousedown',e=>{isDrawing=true;scratch(e);}); canvas.addEventListener('mouseup',()=>isDrawing=false); canvas.addEventListener('mouseleave',()=>isDrawing=false); canvas.addEventListener('mousemove',scratch);
   canvas.addEventListener('touchstart',e=>{isDrawing=true;scratch(e);},{passive:false}); canvas.addEventListener('touchmove',scratch,{passive:false}); canvas.addEventListener('touchend',()=>isDrawing=false);
 }
-
 document.getElementById('rsvpForm').addEventListener('submit', async(e)=>{
   e.preventDefault();
   const f=new FormData(e.target);
@@ -236,13 +260,28 @@ document.getElementById('rsvpForm').addEventListener('submit', async(e)=>{
   e.target.reset();
   setTimeout(()=>document.getElementById('rsvpMsg').style.display='none',4000);
 });
-
-// PWA Service Worker
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
     navigator.serviceWorker.register('./sw.js').then(()=>console.log('PWA ready')).catch(()=>{});
   });
 }
+
+// === PETALS - ONLY 2 to 3 ===
+const petalEmojis = ['🌼','🌸','🧡'];
+const container = document.getElementById('petals');
+function createPetal() {
+  const petal = document.createElement('div');
+  petal.className = 'petal';
+  petal.innerText = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+  petal.style.left = Math.random() * 100 + 'vw';
+  petal.style.animationDuration = (9 + Math.random() * 3) + 's';
+  petal.style.fontSize = (16 + Math.random() * 8) + 'px';
+  container.appendChild(petal);
+  setTimeout(() => petal.remove(), 12000);
+}
+setInterval(createPetal, 3500);
+createPetal();
+setTimeout(createPetal, 1800);
 </script>
 </body>
 </html>
