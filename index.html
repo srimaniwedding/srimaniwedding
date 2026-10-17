@@ -61,39 +61,49 @@
     0%, 100% { transform: translateY(0) rotate(-1deg); }
     50% { transform: translateY(6px) rotate(1deg); }
   }
+
  .main-wrapper {
-    text-align:center; padding:20px 50px 80px 50px;
+    text-align:center; 
+    box-sizing: border-box;
+    padding:0;
+  }
+  /* SNAP SCROLL */
+  #eventPage {
+    scroll-snap-type: y mandatory;
+  }
+  .snap-section {
+    min-height: 100dvh;
+    min-height: 100svh;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    padding: 60px 75px 60px 75px;
     box-sizing: border-box;
   }
-
-
+  #envelopeSection {
+    padding-top: 25vh;
+    padding-bottom: 25vh;
+  }
  .video-box {
-    max-width:460px; margin:0 auto 20px auto;
+    max-width:460px; margin:0 auto; width:100%;
   }
  .video-box video {
     width:100%; border-radius:12px; display:block; background:#000;
   }
- .petals {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: 1000; overflow: hidden;
-  }
- .petal {
-    position: absolute; top: -20px;
-    font-size: 18px;
-    animation: fall linear forwards;
-  }
-  @keyframes fall {
-    0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(110vh) translateX(80px) rotate(360deg); opacity: 0; }
-  }
-
   @media (max-width: 768px) {
    .floral-side { width: 22px; }
    .floral-left { left: -1px; }
    .floral-right { right: -1px; }
-   .main-wrapper { padding: 15px 30px 80px 30px; }
+   .snap-section { padding: 40px 30px 40px 30px; }
+   #envelopeSection { padding-top: 20vh; padding-bottom: 20vh; }
    .video-box { max-width: 100%; }
   }
+
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
 
 </style>
 </head>
@@ -117,50 +127,61 @@
   <!-- Falling Petals -->
   <div class="petals" id="petals"></div>
 
-  <div class="main-wrapper">
-    <div id="video-wrapper" style="position:relative;width:100%;max-width:520px;margin:0 auto;overflow:hidden;border-radius:12px;background:#fffaf0;padding:0 26px 26px 26px;box-sizing:border-box;">
-      <br><br>
-      <video autoplay muted loop playsinline style="width:100%;display:block;transform:scale(1.18);transform-origin:center;object-fit:cover;border-radius:12px;"><source src="envelope.mp4" type="video/mp4"></video>
-      <div style="position:absolute;top:45%;left:47%;transform:translate(-50%,-50%);width:45%;aspect-ratio:300/270;">
-        <div style="position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;font-size:clamp(14px,3.5vw,20px);font-weight:bold;color:#FFFF00;padding-right:7%;padding-top:46%;">11<sup style="font-size:0.55em;vertical-align:super;position:relative;top:-4px;margin-left:1px;text-transform:lowercase;">th</sup>&nbsp;Nov 2026</div>
-        <canvas id="scratch-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;touch-action:none;"></canvas>
-        <canvas id="dissolve-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></canvas>
-      </div>
-      <div id="scratchHint" style="position:absolute;top:47%;left:48%;transform:translate(-50%,-50%);width:90%;pointer-events:none;text-align:center;line-height:1.4;">
-        <div style="margin:0;font-size:13px;color:#F2EFE9;font-weight:bold;letter-spacing:1px;">SCRATCH</div>
-        <div style="margin:6px 0 0 0;font-size:13px;color:#F2EFE9;font-weight:bold;letter-spacing:1px;">HERE</div>
-      </div>
-    </div>
-    <br><br>
-    <div class="video-box"><video autoplay muted loop playsinline><source src="uppu-sakarai.mp4" type="video/mp4"></video></div>
-    <div class="video-box"><video autoplay muted loop playsinline><source src="nalangu.mp4" type="video/mp4"></video></div>
-    <div class="video-box"><video autoplay muted loop playsinline><source src="mappillai-azhaippu.mp4" type="video/mp4"></video></div>
-    <div class="video-box"><video autoplay muted loop playsinline><source src="reception.mp4" type="video/mp4"></video></div>
-    <div class="video-box"><video autoplay muted loop playsinline><source src="muhurtham.mp4" type="video/mp4"></video></div>
+    <div class="main-wrapper">
 
-    <div style="margin-top:50px;max-width:520px;margin:0 auto;text-align:center;">
-      <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">Location</h3>
-      <p style="margin-bottom:15px;font-size:16px;">Pon Thamarai Mahal,<br>Erode to Muthur Main Road, Ellakadai,<br>Tamil Nadu 638109</p>
-      <div style="border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.15);"><iframe src="https://www.google.com/maps?q=Pon+Thamarai+Mahal,+Erode+to+Muthur+Main+Road,+Ellakadai,+Tamil+Nadu+638109&output=embed" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
-      <a href="https://www.google.com/maps/search/?api=1&query=Pon+Thamarai+Mahal+Erode+to+Muthur+Main+Road+Ellakadai+Tamil+Nadu+638109" target="_blank" style="display:inline-block;margin-top:15px;padding:12px 25px;background:#800000;color:#fff;text-decoration:none;border-radius:25px;font-size:16px;">📍 Get Directions</a>
+    <!-- 1st SCREEN - ONLY ENVELOPE -->
+    <div class="snap-section" id="envelopeSection">
+      <div id="video-wrapper" style="position:relative;width:100%;max-width:520px;margin:0 auto;overflow:hidden;border-radius:12px;background:#fffaf0;padding:0 26px 26px 26px;box-sizing:border-box;">
+        <br><br>
+        <video autoplay muted loop playsinline style="width:100%;display:block;transform:scale(1.18);transform-origin:center;object-fit:cover;border-radius:12px;"><source src="envelope.mp4" type="video/mp4"></video>
+        <div style="position:absolute;top:45%;left:47%;transform:translate(-50%,-50%);width:45%;aspect-ratio:300/270;">
+          <div style="position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;font-size:clamp(14px,3.5vw,20px);font-weight:bold;color:#FFFF00;padding-right:7%;padding-top:46%;">11<sup style="font-size:0.55em;vertical-align:super;position:relative;top:-4px;margin-left:1px;text-transform:lowercase;">th</sup>&nbsp;Nov 2026</div>
+          <canvas id="scratch-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;touch-action:none;"></canvas>
+          <canvas id="dissolve-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></canvas>
+        </div>
+        <div id="scratchHint" style="position:absolute;top:47%;left:48%;transform:translate(-50%,-50%);width:90%;pointer-events:none;text-align:center;line-height:1.4;">
+          <div style="margin:0;font-size:13px;color:#F2EFE9;font-weight:bold;letter-spacing:1px;">SCRATCH</div>
+          <div style="margin:6px 0 0 0;font-size:13px;color:#F2EFE9;font-weight:bold;letter-spacing:1px;">HERE</div>
+        </div>
+      </div>
+      <p style="margin-top:30px;color:#800000;font-size:14px;opacity:0.7;animation:bounce 2s infinite;">↓ Swipe up</p>
     </div>
 
-    <div class="section" id="rsvp" style="background:#FFFAF0;padding:40px 24px;margin-top:40px;border-radius:12px;max-width:520px;margin-left:auto;margin-right:auto;">
-      <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">We are so excited to celebrate this new chapter with you!</h3>
-      <h2 style="margin-bottom:8px;">RSVP</h2>
-      <p style="margin-bottom:20px;">Kindly respond by 1<sup>st</sup> Nov 2026</p>
-      <form id="rsvpForm" style="max-width:340px;margin:0 auto;text-align:left;">
-        <label>Name *</label><br><input type="text" name="name" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
-        <label>City *</label><br><input type="text" name="city" placeholder="City" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
-        <label>No. of Guests</label><br><input type="number" name="guests" min="1" max="10" value="1" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
-        <label>Events Attending</label><br><div style="margin:8px 0 16px;"><label><input type="checkbox" name="events" value="Reception"> Reception (10 Nov)</label><br><label><input type="checkbox" name="events" value="Muhurtham"> Muhurtham (11 Nov)</label><br></div>
-        <label>Blessings / Message</label><br><textarea name="message" rows="3" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"></textarea><br>
-        <button type="submit" class="btn" style="width:100%;">Send RSVP</button>
-        <p id="rsvpMsg" style="text-align:center;margin-top:12px;display:none;color:green;">Thank you! Your response has been recorded.</p>
-      </form>
+    <!-- 2nd SCREEN onwards - After 1st swipe -->
+    <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="uppu-sakarai.mp4" type="video/mp4"></video></div></div>
+    <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="nalangu.mp4" type="video/mp4"></video></div></div>
+    <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="mappillai-azhaippu.mp4" type="video/mp4"></video></div></div>
+    <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="reception.mp4" type="video/mp4"></video></div></div>
+    <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="muhurtham.mp4" type="video/mp4"></video></div></div>
+
+    <!-- LOCATION & RSVP as last snap sections -->
+    <div class="snap-section">
+      <div style="max-width:520px;margin:0 auto;text-align:center;width:100%;">
+        <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">Location</h3>
+        <p style="margin-bottom:15px;font-size:16px;">Pon Thamarai Mahal,<br>Erode to Muthur Main Road, Ellakadai,<br>Tamil Nadu 638109</p>
+        <div style="border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.15);"><iframe src="https://www.google.com/maps?q=Pon+Thamarai+Mahal,+Erode+to+Muthur+Main+Road,+Ellakadai,+Tamil+Nadu+638109&output=embed" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
+        <a href="https://www.google.com/maps/search/?api=1&query=Pon+Thamarai+Mahal+Erode+to+Muthur+Main+Road+Ellakadai+Tamil+Nadu+638109" target="_blank" style="display:inline-block;margin-top:15px;padding:12px 25px;background:#800000;color:#fff;text-decoration:none;border-radius:25px;font-size:16px;">📍 Get Directions</a>
+      </div>
     </div>
+
+    <div class="snap-section">
+      <div class="section" id="rsvp" style="background:#FFFAF0;padding:40px 24px;border-radius:12px;max-width:520px;margin:0 auto;width:100%;">
+        <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">We are so excited to celebrate this new chapter with you!</h3>
+        <h2 style="margin-bottom:8px;">RSVP</h2>
+        <p style="margin-bottom:20px;">Kindly respond by 1<sup>st</sup> Nov 2026</p>
+        <form id="rsvpForm" style="max-width:340px;margin:0 auto;text-align:left;">
+          <label>Name *</label><br><input type="text" name="name" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
+          <label>City *</label><br><input type="text" name="city" placeholder="City" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
+          <label>No. of Guests</label><br><input type="number" name="guests" min="1" max="10" value="1" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
+          <label>Events Attending</label><br><div style="margin:8px 0 16px;"><label><input type="checkbox" name="events" value="Reception"> Reception (10 Nov)</label><br><label><input type="checkbox" name="events" value="Muhurtham"> Muhurtham (11 Nov)</label><br></div>
+          <label>Blessings / Message</label><br><textarea name="message" rows="3" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"></textarea><br>
+          <button type="submit" class="btn" style="width:100%;">Send RSVP</button>
+          <p id="rsvpMsg" style="text-align:center;margin-top:12px;display:none;color:green;">Thank you! Your response has been recorded.</p>
+        </form>
+      </div>
+    </div>
+
   </div>
-</div>
 
 <canvas id="sparkCanvas"></canvas>
 
