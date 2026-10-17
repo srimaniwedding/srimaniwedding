@@ -184,7 +184,7 @@
           <!-- <div style="background:#800000; color:#FFFAF0; border-radius:12px; padding:10px 14px; min-width:62px;">
             <div id="cdSecs" style="font-size:22px; font-weight:bold; line-height:1;">00</div>
             <div style="font-size:10px; letter-spacing:1px; margin-top:4px;">SECS</div>
-          </div> -->
+          </div>-->
         </div>
         <p style="margin-top:10px; font-size:12px; color:#800000; opacity:0.8;">10th Nov 2026 - 6:30 PM</p>
       </div>
@@ -208,22 +208,20 @@
       </div>
     </div>
 
-    <div class="snap-section">
-      <div class="section" id="rsvp" style="background:#FFFAF0;padding:40px 24px;border-radius:12px;">
-        <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">We are so excited to celebrate this new chapter with you!</h3>
-        <h2 style="margin-bottom:8px;">RSVP</h2>
-        <p style="margin-bottom:20px;">Kindly respond by 1<sup>st</sup> Nov 2026</p>
-        <form id="rsvpForm" style="max-width:340px;margin:0 auto;text-align:left;">
-          <label>Name *</label><br><input type="text" name="name" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
-          <label>City *</label><br><input type="text" name="city" placeholder="City" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
-          <label>No. of Guests</label><br><input type="number" name="guests" min="1" max="10" value="1" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
-          <label>Events Attending</label><br><div style="margin:8px 0 16px;"><label><input type="checkbox" name="events" value="Reception"> Reception (10 Nov)</label><br><label><input type="checkbox" name="events" value="Muhurtham"> Muhurtham (11 Nov)</label><br></div>
-          <label>Blessings / Message</label><br><textarea name="message" rows="3" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"></textarea><br>
-          <button type="submit" class="btn" style="width:100%;">Send RSVP</button>
-          <p id="rsvpMsg" style="text-align:center;margin-top:12px;display:none;color:green;">Thank you! Your response has been recorded.</p>
-        </form>
-      </div>
-    </div>
+<div class="snap-section" id="rsvpSnap" style="overflow-y:auto; align-items:flex-start; padding-top:30px;">
+  <div id="rsvp" style="background:#FFFAF0;padding:40px 24px;border-radius:12px;">
+    <form id="rsvpForm" autocomplete="off" novalidate style="max-width:340px;margin:0 auto;text-align:left;">
+      <div style="display:none"><input type="text"><input type="password"></div>
+      <label>Name *</label><br><input type="text" name="name" autocomplete="off" data-form-type="other" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
+      <label>City *</label><br><input type="text" name="city" autocomplete="off" data-form-type="other" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
+      <label>No. of Guests</label><br><input type="text" name="guests" inputmode="numeric" autocomplete="off" data-form-type="other" value="1" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
+      <label>Events Attending</label><br><div style="margin:8px 0 16px;"><label><input type="checkbox" name="events" value="Reception"> Reception</label><br><label><input type="checkbox" name="events" value="Muhurtham"> Muhurtham</label><br></div>
+      <label>Blessings / Message</label><br><textarea name="message" autocomplete="off" data-form-type="other" rows="3" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"></textarea><br>
+      <button type="submit" class="btn" style="width:100%;">Send RSVP</button>
+      <p id="rsvpMsg" style="display:none;color:green;text-align:center;margin-top:12px;">Thank you!</p>
+    </form>
+  </div>
+</div>
 
   </div>
 </div>
@@ -380,6 +378,21 @@ function createPetal() {
 setInterval(createPetal, 3500);
 createPetal();
 setTimeout(createPetal, 1800);
+
+
+document.querySelectorAll('#rsvpForm input, #rsvpForm textarea').forEach(el=>{
+ el.addEventListener('focus',()=>{
+  setTimeout(()=>{
+    document.getElementById('eventPage').style.scrollSnapType='none';
+    document.getElementById('rsvpSnap').scrollIntoView({behavior:'smooth', block:'start'});
+  },300);
+ });
+ el.addEventListener('blur',()=>{
+  setTimeout(()=>{ document.getElementById('eventPage').style.scrollSnapType='y mandatory'; },300);
+ });
+});
+
+
 </script>
 </body>
 </html>
