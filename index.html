@@ -105,6 +105,44 @@
 
 @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
 
+/* === RSVP CENTER FIX === */
+#rsvp {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  position: relative;
+  left: -10px; /* moves a bit to left - increase to -15px if needed */
+  max-width: 440px;
+  width: 100%;
+  box-sizing: border-box;
+}
+@media (max-width: 768px) {
+  #rsvp {
+    left: -6px; /* mobile less shift */
+    max-width: 90%;
+  }
+}
+
+#video-wrapper {
+  transform: translateX(10px);
+}
+@media (max-width: 768px) {
+  #video-wrapper {
+    transform: translateX(6px);
+  }
+}
+
+/* === CENTER ALL VIDEOS === */
+.video-box {
+  transform: translateX(10px);
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+@media (max-width: 768px) {
+  .video-box {
+    transform: translateX(6px);
+  }
+}
+
 </style>
 </head>
 <body>
@@ -131,7 +169,7 @@
 
     <!-- 1st SCREEN - ONLY ENVELOPE -->
     <div class="snap-section" id="envelopeSection">
-      <div id="video-wrapper" style="position:relative;width:100%;max-width:520px;margin:0 auto;overflow:hidden;border-radius:12px;background:#fffaf0;padding:0 26px 26px 26px;box-sizing:border-box;">
+      <div id="video-wrapper" style="position:relative;width:100%;max-width:520px;margin:0 auto;overflow:hidden;border-radius:12px;background:#fffaf0;padding:0 26px 26px 26px;box-sizing:border-box;transform:translateX(18px);">
         <br><br>
         <video autoplay muted loop playsinline style="width:100%;display:block;transform:scale(1.18);transform-origin:center;object-fit:cover;border-radius:12px;"><source src="envelope.mp4" type="video/mp4"></video>
         <div style="position:absolute;top:45%;left:47%;transform:translate(-50%,-50%);width:45%;aspect-ratio:300/270;">
