@@ -235,16 +235,8 @@ const home=document.getElementById('home');
 const eventPage=document.getElementById('eventPage');
 const openBtn=document.getElementById('openBtn');
 doorVideo.addEventListener('canplay',()=>doorVideo.classList.add('ready'),{once:true}); doorVideo.load();
-function goFullScreen(){
-  try{
-    if(document.documentElement.requestFullscreen){
-      document.documentElement.requestFullscreen().catch(()=>{});
-    } else if(document.documentElement.webkitRequestFullscreen){
-      document.documentElement.webkitRequestFullscreen();
-    }
-  }catch(e){}
-  setTimeout(()=>{ window.scrollTo(0,1); },150);
-}
+
+
 let doorDone=false;
 function showWelcome(){
   if(doorDone) return; doorDone=true;
@@ -270,8 +262,11 @@ function showEvent(){
   setTimeout(()=>{ welcomeStage.classList.add('fadeOut'); },50);
   setTimeout(()=>{ welcomeStage.style.display='none'; },700);
 }
+
 openBtn.addEventListener('click',()=>{
-  goFullScreen();
+  // goFullScreen removed - fixes mobile exit message
+  window.scrollTo(0,1);
+
   bgm.volume = 0.3;
   bgm.loop = true;
   bgm.play().then(()=>{ bgm.muted=false; bgm.volume=0.3; }).catch(()=>{});
