@@ -47,23 +47,26 @@
   #scratchHint{transition:opacity 0.4s}
   #scratchHint.hide{opacity:0}
 
-  /* === FLORAL BORDER FIX === */
+
+  /* === FLORAL BORDER FIX - Thinner & Edge === */
  .floral-side {
-    position: fixed; top: 0; width: 55px; height: 100vh;
+    position: fixed; top: 0; width: 32px; height: 100vh;
     background: url('floral-border.png'); background-repeat: repeat-y; background-size: contain;
     z-index: 999; pointer-events: none;
     animation: sway 4s ease-in-out infinite;
   }
- .floral-left { left: 0; }
- .floral-right { right: 0; animation-delay: 0.5s; }
+ .floral-left { left: -2px; }
+ .floral-right { right: -2px; animation-delay: 0.5s; }
   @keyframes sway {
     0%, 100% { transform: translateY(0) rotate(-1deg); }
     50% { transform: translateY(6px) rotate(1deg); }
   }
  .main-wrapper {
-    text-align:center; padding:20px 75px 80px 75px;
+    text-align:center; padding:20px 50px 80px 50px;
     box-sizing: border-box;
   }
+
+
  .video-box {
     max-width:460px; margin:0 auto 20px auto;
   }
@@ -83,11 +86,15 @@
     0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
     100% { transform: translateY(110vh) translateX(80px) rotate(360deg); opacity: 0; }
   }
+
   @media (max-width: 768px) {
-   .floral-side { width: 36px; }
-   .main-wrapper { padding: 15px 46px 80px 46px; }
+   .floral-side { width: 22px; }
+   .floral-left { left: -1px; }
+   .floral-right { right: -1px; }
+   .main-wrapper { padding: 15px 30px 80px 30px; }
    .video-box { max-width: 100%; }
   }
+
 </style>
 </head>
 <body>
