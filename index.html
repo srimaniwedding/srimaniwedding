@@ -127,6 +127,8 @@
    #video-wrapper { transform: translateX(6px); }
    #rsvp { left: -4px; max-width: 90%; }
   }
+input[readonly], textarea[readonly]{ background:#fff !important; }
+
 </style>
 </head>
 <body>
@@ -209,22 +211,39 @@
     </div>
 
 <div class="snap-section" id="rsvpSnap" style="overflow-y:auto; align-items:flex-start; padding-top:30px;">
-  <div id="rsvp" style="background:#FFFAF0;padding:40px 24px;border-radius:12px;">
+  <div id="rsvp" style="background:#FFFAF0;padding:40px 24px;border-radius:12px;max-width:440px;width:100%;margin:0 auto;box-sizing:border-box;">
+    <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">We are so excited to celebrate this new chapter with you!</h3>
+    <h2 style="margin-bottom:8px;">RSVP</h2>
+    <p style="margin-bottom:20px;">Kindly respond by 1<sup>st</sup> Nov 2026</p>
+    
     <form id="rsvpForm" autocomplete="off" novalidate style="max-width:340px;margin:0 auto;text-align:left;">
-      <div style="display:none"><input type="text"><input type="password"></div>
-      <label>Name *</label><br><input type="text" name="name" autocomplete="off" data-form-type="other" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
-      <label>City *</label><br><input type="text" name="city" autocomplete="off" data-form-type="other" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
-      <label>No. of Guests</label><br><input type="text" name="guests" inputmode="numeric" autocomplete="off" data-form-type="other" value="1" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
-      <label>Events Attending</label><br><div style="margin:8px 0 16px;"><label><input type="checkbox" name="events" value="Reception"> Reception</label><br><label><input type="checkbox" name="events" value="Muhurtham"> Muhurtham</label><br></div>
-      <label>Blessings / Message</label><br><textarea name="message" autocomplete="off" data-form-type="other" rows="3" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"></textarea><br>
+      
+      <label>Name *</label><br>
+      <input type="text" name="name" readonly onfocus="this.removeAttribute('readonly')" autocomplete="new-password" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
+      
+      <label>City *</label><br>
+      <input type="text" name="city" readonly onfocus="this.removeAttribute('readonly')" autocomplete="new-password" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
+      
+      <label>No. of Guests</label><br>
+      <input type="text" name="guests" inputmode="numeric" readonly onfocus="this.removeAttribute('readonly')" autocomplete="new-password" value="1" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
+      
+      <label>Events Attending</label><br>
+      <div style="margin:8px 0 16px;">
+        <label><input type="checkbox" name="events" value="Reception"> Reception (10 Nov)</label><br>
+        <label><input type="checkbox" name="events" value="Muhurtham"> Muhurtham (11 Nov)</label><br>
+      </div>
+      
+      <label>Blessings / Message</label><br>
+      <textarea name="message" readonly onfocus="this.removeAttribute('readonly')" autocomplete="new-password" rows="3" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"></textarea><br>
+      
       <button type="submit" class="btn" style="width:100%;">Send RSVP</button>
-      <p id="rsvpMsg" style="display:none;color:green;text-align:center;margin-top:12px;">Thank you!</p>
+      <p id="rsvpMsg" style="display:none;color:green;text-align:center;margin-top:12px;">Thank you! Your response has been recorded.</p>
     </form>
   </div>
 </div>
 
-  </div>
-</div>
+</div>  
+
 
 <canvas id="sparkCanvas"></canvas>
 
@@ -393,6 +412,22 @@ document.querySelectorAll('#rsvpForm input, #rsvpForm textarea').forEach(el=>{
 });
 
 
+// Fix keyboard scroll + completely block autofill strip
+const rsvpSnap = document.getElementById('rsvpSnap');
+const eventPageEl = document.getElementById('eventPage');
+document.querySelectorAll('#rsvpForm input, #rsvpForm textarea').forEach(el=>{
+  el.addEventListener('focus', ()=>{
+    el.removeAttribute('readonly');
+    setTimeout(()=>{
+      eventPageEl.style.scrollSnapType='none';
+      rsvpSnap.scrollIntoView({behavior:'smooth', block:'start'});
+    },200);
+  });
+  el.addEventListener('blur', ()=>{
+    el.setAttribute('readonly','');
+    setTimeout(()=>{ eventPageEl.style.scrollSnapType='y mandatory'; },300);
+  });
+});
 </script>
 </body>
 </html>
