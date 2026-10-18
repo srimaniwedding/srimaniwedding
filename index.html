@@ -11,17 +11,11 @@
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <meta name="apple-mobile-web-app-title" content="Wedding Invite">
-
 <meta property="og:title" content="Wedding Invitation">
 <meta property="og:description" content="You are invited">
 <meta property="og:url" content="https://srimaniwedding.vercel.app/">
 <meta property="og:image" content="https://srimaniwedding.vercel.app/cover-v3.jpg">
-<meta property="og:image:secure_url" content="https://srimaniwedding.vercel.app/cover-v3.jpg">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta property="og:type" content="website">
-<link rel="canonical" href="https://srimaniwedding.vercel.app/">
 
 <style>
   html,body{margin:0;padding:0;height:100%;background:#000;font-family:Arial,sans-serif;overflow:hidden}
@@ -35,100 +29,45 @@
   #welcomeStage{position:fixed;inset:0;background:#000;z-index:20;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity 0.6s ease}
   #welcomeStage.show{display:flex;opacity:1}
   #welcomeStage.fadeOut{opacity:0}
-  #welcomeCrop{position:fixed;inset:0;width:100vw;height:100dvh;min-height:-webkit-fill-available;background:#000;overflow:hidden;border-radius:0;max-width:none;aspect-ratio:auto}
-  #welcomeCrop video{position:absolute;inset:0;width:100vw;height:100dvh;min-height:-webkit-fill-available;object-fit:cover;object-position:center center;transform:none;background:#000}
-  #eventPage{position:fixed;inset:0;width:100%;height:100dvh;min-height:-webkit-fill-available;overflow-y:auto;overflow-x:hidden;display:none;background:#fffaf0;opacity:0;transition:opacity 0.6s ease;z-index:10;-webkit-overflow-scrolling:touch; scroll-snap-type: y mandatory;}
+  #welcomeCrop{position:fixed;inset:0;width:100vw;height:100dvh;background:#000;overflow:hidden}
+  #welcomeCrop video{position:absolute;inset:0;width:100vw;height:100dvh;object-fit:cover;object-position:center center;background:#000}
+  #eventPage{
+    position:fixed;inset:0;width:100%;height:100dvh;overflow-y:auto;overflow-x:hidden;display:none;
+    background-color:#FFFAF0;
+    background-image: url('wallpaper.png');
+    background-repeat: repeat;
+    background-size: 380px auto;
+    opacity:0;transition:opacity 0.6s ease;z-index:10;
+    -webkit-overflow-scrolling:touch; scroll-snap-type: y mandatory;
+  }
   #eventPage.show{display:block}
   #eventPage.visible{opacity:1}
   .btn{background:#800000;color:#fff;padding:12px 25px;border-radius:25px;border:none;cursor:pointer}
   #sparkCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:9999}
   #scratchHint{transition:opacity 0.4s}
   #scratchHint.hide{opacity:0}
-
-  /* === FLORAL BORDER - THINNER & EDGE === */
-  .floral-side {
-    position: fixed; top: 0; width: 32px; height: 100vh;
-    background: url('floral-border.png'); background-repeat: repeat-y; background-size: contain;
-    z-index: 999; pointer-events: none;
-    animation: sway 4s ease-in-out infinite;
-  }
-  .floral-left { left: -2px; }
-  .floral-right { right: -2px; animation-delay: 0.5s; }
-  @keyframes sway {
-    0%, 100% { transform: translateY(0) rotate(-1deg); }
-    50% { transform: translateY(6px) rotate(1deg); }
-  }
-
-  .main-wrapper {
-    text-align:center; padding:0;
-    box-sizing: border-box;
-  }
-  .snap-section {
-    min-height: 100dvh;
-    min-height: 100svh;
-    width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    padding: 60px 50px 60px 50px;
-    box-sizing: border-box;
-  }
-  #envelopeSection {
-    padding-top: 20vh;
-    padding-bottom: 20vh;
-  }
-  .video-box {
-    max-width:460px; margin:0 auto; width:100%;
-    transform: translateX(10px);
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-  .video-box video {
-    width:100%; border-radius:12px; display:block; background:#000;
-  }
-  #video-wrapper {
-    transform: translateX(10px);
-  }
-  #rsvp {
-    margin-left: auto !important;
-    margin-right: auto !important;
-    position: relative;
-    left: -2px;
-    max-width: 440px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .petals {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; z-index: 1000; overflow: hidden;
-  }
-  .petal {
-    position: absolute; top: -20px;
-    font-size: 18px;
-    animation: fall linear forwards;
-  }
-  @keyframes fall {
-    0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(110vh) translateX(80px) rotate(360deg); opacity: 0; }
-  }
+  .floral-side {position: fixed; top: 0; width: 32px; height: 100vh;background: url('floral-border.png'); background-repeat: repeat-y; background-size: contain;z-index: 999; pointer-events: none;animation: sway 4s ease-in-out infinite;}
+  .floral-left { left: -2px; } .floral-right { right: -2px; animation-delay: 0.5s; }
+  @keyframes sway {0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(6px) rotate(1deg); }}
+  .main-wrapper {text-align:center; padding:0; box-sizing: border-box; position:relative;}
+  .main-wrapper::before{content:""; position:fixed; inset:0; background: rgba(255,250,240,0.72); z-index:-1; pointer-events:none;}
+  .snap-section {min-height: 100dvh;width:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;scroll-snap-align: start;scroll-snap-stop: always;padding: 60px 20px;box-sizing: border-box;}
+  #envelopeSection {padding-top: 20vh; padding-bottom: 20vh;}
+  /* ONLY EVENT VIDEOS - CENTERED + NO WHITE BORDER */
+  .video-box {max-width:460px; margin:0 auto; width:100%; background: transparent !important; padding:0 !important; border:none !important; box-shadow:none !important; transform:none !important;}
+  .video-box video {width:100%; border-radius:12px; display:block; background:transparent;}
+  #rsvp {margin:0 auto!important; max-width: 440px; width: 100%; box-sizing: border-box; box-shadow:0 8px 30px rgba(128,0,0,0.12);}
+  input[readonly], textarea[readonly]{ background:#fff !important; }
+  .petals {position: fixed; top: 0; left: 0; width: 100%; height: 100%;pointer-events: none; z-index: 1000; overflow: hidden;}
+  .petal {position: absolute; top: -20px; font-size: 18px; animation: fall linear forwards;}
+  @keyframes fall {0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) translateX(80px) rotate(360deg); opacity: 0; }}
   @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
-
   @media (max-width: 768px) {
-   .floral-side { width: 22px; }
-   .floral-left { left: -1px; }
-   .floral-right { right: -1px; }
-   .snap-section { padding: 40px 30px 40px 30px; }
+   .floral-side { width: 22px; } .floral-left { left: -1px; } .floral-right { right: -1px; }
+   .snap-section { padding: 40px 20px; }
    #envelopeSection { padding-top: 15vh; padding-bottom: 15vh; }
-   .video-box { max-width: 100%; transform: translateX(6px); }
-   #video-wrapper { transform: translateX(6px); }
-   #rsvp { left: -4px; max-width: 90%; }
+   #eventPage{ background-size: 280px auto; }
   }
-input[readonly], textarea[readonly]{ background:#fff !important; }
-
 </style>
 </head>
 <body>
@@ -151,7 +90,6 @@ input[readonly], textarea[readonly]{ background:#fff !important; }
 
   <div class="main-wrapper">
 
-    <!-- 1st SCREEN - ONLY ENVELOPE -->
     <div class="snap-section" id="envelopeSection">
       <div id="video-wrapper" style="position:relative;width:100%;max-width:520px;margin:0 auto;overflow:hidden;border-radius:12px;background:#fffaf0;padding:0 26px 26px 26px;box-sizing:border-box;">
         <br><br>
@@ -167,34 +105,19 @@ input[readonly], textarea[readonly]{ background:#fff !important; }
         </div>
       </div>
 
-      <!-- COUNTDOWN -->
       <div id="countdownWrap" style="display:none; margin-top:28px; text-align:center; opacity:0; transition: opacity 0.8s ease;">
         <p style="font-family:serif; color:#800000; font-size:15px; letter-spacing:1px; margin-bottom:12px; font-weight:bold;">RECEPTION BEGINS IN</p>
         <div style="display:flex; gap:10px; justify-content:center;">
-          <div style="background:#800000; color:#FFFAF0; border-radius:12px; padding:10px 14px; min-width:62px;">
-            <div id="cdDays" style="font-size:22px; font-weight:bold; line-height:1;">00</div>
-            <div style="font-size:10px; letter-spacing:1px; margin-top:4px;">DAYS</div>
-          </div>
-          <div style="background:#800000; color:#FFFAF0; border-radius:12px; padding:10px 14px; min-width:62px;">
-            <div id="cdHours" style="font-size:22px; font-weight:bold; line-height:1;">00</div>
-            <div style="font-size:10px; letter-spacing:1px; margin-top:4px;">HOURS</div>
-          </div>
-          <div style="background:#800000; color:#FFFAF0; border-radius:12px; padding:10px 14px; min-width:62px;">
-            <div id="cdMins" style="font-size:22px; font-weight:bold; line-height:1;">00</div>
-            <div style="font-size:10px; letter-spacing:1px; margin-top:4px;">MINS</div>
-          </div>
-          <!-- <div style="background:#800000; color:#FFFAF0; border-radius:12px; padding:10px 14px; min-width:62px;">
-            <div id="cdSecs" style="font-size:22px; font-weight:bold; line-height:1;">00</div>
-            <div style="font-size:10px; letter-spacing:1px; margin-top:4px;">SECS</div>
-          </div>-->
+          <div style="background:#800000; color:#FFFAF0; border-radius:12px; padding:10px 14px; min-width:62px;"><div id="cdDays" style="font-size:22px; font-weight:bold; line-height:1;">00</div><div style="font-size:10px; letter-spacing:1px; margin-top:4px;">DAYS</div></div>
+          <div style="background:#800000; color:#FFFAF0; border-radius:12px; padding:10px 14px; min-width:62px;"><div id="cdHours" style="font-size:22px; font-weight:bold; line-height:1;">00</div><div style="font-size:10px; letter-spacing:1px; margin-top:4px;">HOURS</div></div>
+          <div style="background:#800000; color:#FFFAF0; border-radius:12px; padding:10px 14px; min-width:62px;"><div id="cdMins" style="font-size:22px; font-weight:bold; line-height:1;">00</div><div style="font-size:10px; letter-spacing:1px; margin-top:4px;">MINS</div></div>
         </div>
         <p style="margin-top:10px; font-size:12px; color:#800000; opacity:0.8;">10th Nov 2026 - 6:30 PM</p>
       </div>
 
-      <p id="swipeHint" style="margin-top:20px;color:#800000;font-size:14px;opacity:0.7;animation:bounce 2s infinite;">↓ Swipe up</p>
+      <p id="swipeHint" style="margin-top:20px;color:#800000;font-size:14px;opacity:0.7;animation:bounce 2s infinite; display:none;">↓ Swipe up for details</p>
     </div>
 
-    <!-- After 1st swipe -->
     <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="uppu-sakarai.mp4" type="video/mp4"></video></div></div>
     <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="nalangu.mp4" type="video/mp4"></video></div></div>
     <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="mappillai-azhaippu.mp4" type="video/mp4"></video></div></div>
@@ -202,7 +125,7 @@ input[readonly], textarea[readonly]{ background:#fff !important; }
     <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="muhurtham.mp4" type="video/mp4"></video></div></div>
 
     <div class="snap-section">
-      <div style="max-width:520px;margin:0 auto;text-align:center;width:100%;">
+      <div style="max-width:520px;margin:0 auto;text-align:center;width:100%; background: #FFFAF0;padding:20px; border-radius:12px; box-shadow:0 4px 20px rgba(128,0,0,0.08);">
         <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">Location</h3>
         <p style="margin-bottom:15px;font-size:16px;">Pon Thamarai Mahal,<br>Erode to Muthur Main Road, Ellakadai,<br>Tamil Nadu 638109</p>
         <div style="border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.15);"><iframe src="https://www.google.com/maps?q=Pon+Thamarai+Mahal,+Erode+to+Muthur+Main+Road,+Ellakadai,+Tamil+Nadu+638109&output=embed" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
@@ -210,151 +133,64 @@ input[readonly], textarea[readonly]{ background:#fff !important; }
       </div>
     </div>
 
-<div class="snap-section" id="rsvpSnap" style="overflow-y:auto; align-items:flex-start; padding-top:30px;">
-  <div id="rsvp" style="background:#FFFAF0;padding:40px 24px;border-radius:12px;max-width:440px;width:100%;margin:0 auto;box-sizing:border-box;">
-    <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">We are so excited to celebrate this new chapter with you!</h3>
-    <h2 style="margin-bottom:8px;">RSVP</h2>
-    <p style="margin-bottom:20px;">Kindly respond by 1<sup>st</sup> Nov 2026</p>
-    
-    <form id="rsvpForm" autocomplete="off" novalidate style="max-width:340px;margin:0 auto;text-align:left;">
-      
-      <label>Name *</label><br>
-      <input type="text" name="name" readonly onfocus="this.removeAttribute('readonly')" autocomplete="new-password" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
-      
-      <label>City *</label><br>
-      <input type="text" name="city" readonly onfocus="this.removeAttribute('readonly')" autocomplete="new-password" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
-      
-      <label>No. of Guests</label><br>
-      <input type="text" name="guests" inputmode="numeric" readonly onfocus="this.removeAttribute('readonly')" autocomplete="new-password" value="1" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
-      
-      <label>Events Attending</label><br>
-      <div style="margin:8px 0 16px;">
-        <label><input type="checkbox" name="events" value="Reception"> Reception (10 Nov)</label><br>
-        <label><input type="checkbox" name="events" value="Muhurtham"> Muhurtham (11 Nov)</label><br>
+    <div class="snap-section" id="rsvpSnap" style="overflow-y:auto; -webkit-overflow-scrolling:touch; align-items:flex-start; padding-top:30px;">
+      <div id="rsvp" style="background:#FFFAF0;padding:40px 24px;border-radius:12px;">
+        <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">We are so excited to celebrate this new chapter with you!</h3>
+        <h2 style="margin-bottom:8px;">RSVP</h2>
+        <p style="margin-bottom:20px;">Kindly respond by 1<sup>st</sup> Nov 2026</p>
+        <form id="rsvpForm" autocomplete="off" style="max-width:340px;margin:0 auto;text-align:left;">
+          <label>Name *</label><br><input type="text" name="name" readonly onfocus="this.removeAttribute('readonly')" autocomplete="new-password" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
+          <label>City *</label><br><input type="text" name="city" readonly onfocus="this.removeAttribute('readonly')" autocomplete="new-password" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
+          <label>No. of Guests</label><br><input type="text" name="guests" inputmode="numeric" readonly onfocus="this.removeAttribute('readonly')" autocomplete="new-password" value="1" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
+          <label>Events Attending</label><br><div style="margin:8px 0 16px;"><label><input type="checkbox" name="events" value="Reception"> Reception (10 Nov)</label><br><label><input type="checkbox" name="events" value="Muhurtham"> Muhurtham (11 Nov)</label><br></div>
+          <label>Blessings / Message</label><br><textarea name="message" readonly onfocus="this.removeAttribute('readonly')" autocomplete="new-password" rows="3" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"></textarea><br>
+          <button type="submit" class="btn" style="width:100%;">Send RSVP</button>
+          <p id="rsvpMsg" style="text-align:center;margin-top:12px;display:none;color:green;">Thank you! Your response has been recorded.</p>
+        </form>
       </div>
-      
-      <label>Blessings / Message</label><br>
-      <textarea name="message" readonly onfocus="this.removeAttribute('readonly')" autocomplete="new-password" rows="3" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"></textarea><br>
-      
-      <button type="submit" class="btn" style="width:100%;">Send RSVP</button>
-      <p id="rsvpMsg" style="display:none;color:green;text-align:center;margin-top:12px;">Thank you! Your response has been recorded.</p>
-    </form>
+    </div>
+
   </div>
 </div>
-
-</div>  
-
 
 <canvas id="sparkCanvas"></canvas>
 
 <script>
-const bgm=document.getElementById('bgm');
-bgm.volume = 0.3;
-bgm.loop = true;
-bgm.preload = "auto";
-const doorVideo=document.getElementById('doorVideo');
-const welcomeStage=document.getElementById('welcomeStage');
-const welcomeVideo=document.getElementById('welcomeVideo');
-const home=document.getElementById('home');
-const eventPage=document.getElementById('eventPage');
-const openBtn=document.getElementById('openBtn');
+const bgm=document.getElementById('bgm'); bgm.volume=0.3; bgm.loop=true; bgm.preload="auto";
+const doorVideo=document.getElementById('doorVideo'); const welcomeStage=document.getElementById('welcomeStage'); const welcomeVideo=document.getElementById('welcomeVideo'); const home=document.getElementById('home'); const eventPage=document.getElementById('eventPage'); const openBtn=document.getElementById('openBtn');
 doorVideo.addEventListener('canplay',()=>doorVideo.classList.add('ready'),{once:true}); doorVideo.load();
-
-let doorDone=false;
-function showWelcome(){
-  if(doorDone) return; doorDone=true;
-  home.classList.add('hide');
-  setTimeout(()=>home.style.display='none',600);
-  welcomeStage.classList.add('show');
-  requestAnimationFrame(()=>welcomeStage.style.opacity='1');
-  welcomeVideo.currentTime=0;
-  welcomeVideo.muted=bgm.muted;
-  welcomeVideo.volume=0.3;
-  welcomeVideo.play().catch(()=>{welcomeVideo.muted=true; welcomeVideo.play();});
-}
-function showEvent(){
-  if(window._shown) return; window._shown=true;
-  eventPage.classList.add('show');
-  document.body.style.overflow='auto';
-  document.documentElement.style.overflow='auto';
-  void eventPage.offsetWidth;
-  eventPage.classList.add('visible');
-  window.scrollTo(0,1);
-  setTimeout(()=>{ window.scrollTo(0,1); },300);
-  setTimeout(initScratch,100);
-  setTimeout(()=>{ welcomeStage.classList.add('fadeOut'); },50);
-  setTimeout(()=>{ welcomeStage.style.display='none'; },700);
-}
-openBtn.addEventListener('click',()=>{
-  window.scrollTo(0,1);
-  bgm.volume = 0.3;
-  bgm.loop = true;
-  bgm.play().then(()=>{ bgm.muted=false; bgm.volume=0.3; }).catch(()=>{});
-  openBtn.style.display='none';
-  doorVideo.muted=false;
-  doorVideo.currentTime=0;
-  doorVideo.play().catch(()=>{});
-  setTimeout(showWelcome,4300);
-});
+let doorDone=false; function showWelcome(){ if(doorDone) return; doorDone=true; home.classList.add('hide'); setTimeout(()=>home.style.display='none',600); welcomeStage.classList.add('show'); requestAnimationFrame(()=>welcomeStage.style.opacity='1'); welcomeVideo.currentTime=0; welcomeVideo.muted=bgm.muted; welcomeVideo.volume=0.3; welcomeVideo.play().catch(()=>{welcomeVideo.muted=true; welcomeVideo.play();}); }
+function showEvent(){ if(window._shown) return; window._shown=true; eventPage.classList.add('show'); document.body.style.overflow='auto'; document.documentElement.style.overflow='auto'; void eventPage.offsetWidth; eventPage.classList.add('visible'); window.scrollTo(0,1); setTimeout(()=>{ window.scrollTo(0,1); },300); setTimeout(initScratch,100); setTimeout(()=>{ welcomeStage.classList.add('fadeOut'); },50); setTimeout(()=>{ welcomeStage.style.display='none'; },700); }
+openBtn.addEventListener('click',()=>{ window.scrollTo(0,1); bgm.volume=0.3; bgm.loop=true; bgm.play().then(()=>{ bgm.muted=false; bgm.volume=0.3; }).catch(()=>{}); openBtn.style.display='none'; doorVideo.muted=false; doorVideo.currentTime=0; doorVideo.play().catch(()=>{}); setTimeout(showWelcome,4300); });
 welcomeVideo.addEventListener('ended',showEvent);
-document.getElementById('muteBtn').addEventListener('click',function(e){
-  e.stopPropagation();
-  bgm.muted=!bgm.muted;
-  if(!bgm.muted) bgm.volume = 0.3;
-  this.textContent=bgm.muted?'🔇':'🔊';
-  welcomeVideo.muted=bgm.muted;
-});
-let lastScroll=0;
-document.getElementById('eventPage').addEventListener('scroll',()=>{
-  const st = eventPage.scrollTop;
-  if(st > 100 && st > lastScroll){
-    window.scrollTo(0,1);
-  }
-  lastScroll = st;
-});
+document.getElementById('muteBtn').addEventListener('click',function(e){ e.stopPropagation(); bgm.muted=!bgm.muted; if(!bgm.muted) bgm.volume=0.3; this.textContent=bgm.muted?'🔇':'🔊'; welcomeVideo.muted=bgm.muted; });
 
-// COUNTDOWN LOGIC
-const targetDate = new Date("2026-11-10T18:30:00+05:30").getTime();
+let canSwipe=false; let lastScroll=0; const eventPageEl=document.getElementById('eventPage');
+function isScratchArea(t){ return t.closest('#video-wrapper') || t.closest('#scratch-card') || t.closest('#envelopeSection'); }
+eventPageEl.addEventListener('scroll',()=>{ if(!canSwipe){ eventPageEl.scrollTop=0; return; } const st=eventPageEl.scrollTop; if(st>100 && st>lastScroll){ window.scrollTo(0,1); } lastScroll=st; });
+eventPageEl.addEventListener('touchmove', (e)=>{ if(!canSwipe && !isScratchArea(e.target)) e.preventDefault(); },{passive:false});
+eventPageEl.addEventListener('wheel', (e)=>{ if(!canSwipe && !isScratchArea(e.target)) e.preventDefault(); },{passive:false});
+
+const targetDate=new Date("2026-11-10T18:30:00+05:30").getTime();
 function updateCountdown(){
-  const now = new Date().getTime();
-  const diff = targetDate - now;
-  if(diff <= 0){
-    document.getElementById('cdDays').innerText = "00";
-    document.getElementById('cdHours').innerText = "00";
-    document.getElementById('cdMins').innerText = "00";
-    document.getElementById('cdSecs').innerText = "00";
-    return;
-  }
-  const days = Math.floor(diff / (1000*60*60*24));
-  const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-  const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
-  const secs = Math.floor((diff % (1000*60)) / 1000);
-  document.getElementById('cdDays').innerText = String(days).padStart(2,'0');
-  document.getElementById('cdHours').innerText = String(hours).padStart(2,'0');
-  document.getElementById('cdMins').innerText = String(mins).padStart(2,'0');
-  document.getElementById('cdSecs').innerText = String(secs).padStart(2,'0');
+  const now=new Date().getTime(); const diff=targetDate-now;
+  if(diff<=0){ document.getElementById('cdDays').innerText="00"; document.getElementById('cdHours').innerText="00"; document.getElementById('cdMins').innerText="00"; return; }
+  const days=Math.floor(diff/(1000*60*60*24));
+  const hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+  const mins=Math.floor((diff%(1000*60*60))/(1000*60));
+  document.getElementById('cdDays').innerText=String(days).padStart(2,'0');
+  document.getElementById('cdHours').innerText=String(hours).padStart(2,'0');
+  document.getElementById('cdMins').innerText=String(mins).padStart(2,'0');
 }
-function showCountdown(){
-  const wrap = document.getElementById('countdownWrap');
-  if(!wrap) return;
-  wrap.style.display = 'block';
-  setTimeout(()=> wrap.style.opacity = '1', 100);
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-}
+function showCountdown(){ const wrap=document.getElementById('countdownWrap'); if(!wrap) return; wrap.style.display='block'; setTimeout(()=> wrap.style.opacity='1',100); updateCountdown(); setInterval(updateCountdown,60000); }
 
 let scratchInited=false;
 function initScratch(){
   if(scratchInited) return; scratchInited=true;
-  const canvas=document.getElementById('scratch-card');
-  const dCanvas=document.getElementById('dissolve-card');
-  const sparkCanvas=document.getElementById('sparkCanvas');
-  const hintEl=document.getElementById('scratchHint');
+  const canvas=document.getElementById('scratch-card'); const dCanvas=document.getElementById('dissolve-card');
+  const sparkCanvas=document.getElementById('sparkCanvas'); const hintEl=document.getElementById('scratchHint');
   const spCtx=sparkCanvas.getContext('2d'); const dCtx=dCanvas.getContext('2d'); const ctx=canvas.getContext('2d',{willReadFrequently:true});
-  function drawHeart(c, alpha=1){
-    c.save(); c.globalAlpha=alpha; c.globalCompositeOperation='source-over'; c.fillStyle='#e60000';
-    c.beginPath(); c.moveTo(150,265); c.bezierCurveTo(5,155,25,20,150,75); c.bezierCurveTo(275,20,295,155,150,265); c.fill(); c.restore();
-  }
+  function drawHeart(c, alpha=1){ c.save(); c.globalAlpha=alpha; c.globalCompositeOperation='source-over'; c.fillStyle='#e60000'; c.beginPath(); c.moveTo(150,265); c.bezierCurveTo(5,155,25,20,150,75); c.bezierCurveTo(275,20,295,155,150,265); c.fill(); c.restore(); }
   drawHeart(ctx,1);
   let isDrawing=false,startTime=0,revealed=false,particles=[];
   function resizeSpark(){sparkCanvas.width=innerWidth*2;sparkCanvas.height=innerHeight*2;sparkCanvas.style.width=innerWidth+'px';sparkCanvas.style.height=innerHeight+'px';}
@@ -364,70 +200,39 @@ function initScratch(){
   function createDissolve(){particles=[];for(let i=0;i<55;i++)particles.push({x:90+Math.random()*120,y:60+Math.random()*140,vx:(Math.random()-0.5)*5,vy:-(Math.random()*6+1.5),size:Math.random()*8+5,a:1,rot:Math.random()*60-30,vr:(Math.random()-0.5)*6,color:`hsl(${Math.random()*12+38},100%,${55+Math.random()*15}%)`,delay:Math.random()*0.25});}
   function animateDissolve(){dCtx.clearRect(0,0,300,270);let alive=0;particles.forEach(p=>{if(p.delay>0){p.delay-=0.02;alive++;return;}p.x+=p.vx;p.y+=p.vy;p.vy+=0.08;p.vx*=0.99;p.a-=0.011;p.rot+=p.vr*0.1;if(p.a>0){alive++;dCtx.globalAlpha=p.a;dCtx.save();dCtx.translate(p.x,p.y);dCtx.rotate(p.rot*Math.PI/180);dCtx.fillStyle=p.color;dCtx.shadowBlur=8;dCtx.shadowColor=p.color;dCtx.beginPath();const s=p.size;dCtx.moveTo(0,s*0.3);dCtx.bezierCurveTo(-s*0.5,-s*0.3,-s*0.7,s*0.2,0,s*0.6);dCtx.bezierCurveTo(s*0.7,s*0.2,s*0.5,-s*0.3,0,s*0.3);dCtx.fill();dCtx.restore();}});dCtx.globalAlpha=1;if(alive>0)requestAnimationFrame(animateDissolve);else dCtx.clearRect(0,0,300,270);}
   function launchSparks(){const rect=canvas.getBoundingClientRect();const cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;const sparks=[];for(let i=0;i<200;i++){const ang=Math.random()*Math.PI*2,speed=Math.random()*16+4;sparks.push({x:cx,y:cy,vx:Math.cos(ang)*speed,vy:Math.sin(ang)*speed-Math.random()*2,life:1,decay:Math.random()*0.014+0.008,color:`hsl(${Math.random()*20+35},100%,60%)`,size:Math.random()*3+1.2});}const start=performance.now();function frame(now){const e=now-start;spCtx.clearRect(0,0,sparkCanvas.width,sparkCanvas.height);sparks.forEach(s=>{s.x+=s.vx;s.vx*=0.99;s.y+=s.vy;s.vy+=0.14;s.life-=s.decay;if(s.life>0){spCtx.globalAlpha=s.life;spCtx.fillStyle=s.color;spCtx.beginPath();spCtx.arc(s.x*2,s.y*2,s.size*s.life*3,0,Math.PI*2);spCtx.fill();}});if(e<2000)requestAnimationFrame(frame);else spCtx.clearRect(0,0,sparkCanvas.width,sparkCanvas.height);}requestAnimationFrame(frame);}
-  function scratch(e){if(!isDrawing||revealed) return;e.preventDefault();if(!startTime)startTime=Date.now();const pos=getPos(e);ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(pos.x,pos.y,30,0,Math.PI*2);ctx.fill();const prog=checkProgress(),elapsed=Date.now()-startTime;if((prog>0.26&&elapsed>650)||elapsed>1700||prog>0.42){if(!revealed){revealed=true;if(hintEl){hintEl.classList.add('hide');setTimeout(()=>hintEl.style.display='none',400);}createDissolve();animateDissolve();let fade=1;const f=setInterval(()=>{fade-=0.10;ctx.clearRect(0,0,300,270);if(fade>0){drawHeart(ctx,fade);}else{clearInterval(f);ctx.clearRect(0,0,300,270);}},35);setTimeout(launchSparks,380); setTimeout(showCountdown, 800);}}}
+  function scratch(e){if(!isDrawing||revealed) return;e.preventDefault();if(!startTime)startTime=Date.now();const pos=getPos(e);ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(pos.x,pos.y,30,0,Math.PI*2);ctx.fill();const prog=checkProgress(),elapsed=Date.now()-startTime;if((prog>0.26&&elapsed>650)||elapsed>1700||prog>0.42){if(!revealed){revealed=true;if(hintEl){hintEl.classList.add('hide');setTimeout(()=>hintEl.style.display='none',400);}createDissolve();animateDissolve();let fade=1;const f=setInterval(()=>{fade-=0.10;ctx.clearRect(0,0,300,270);if(fade>0){drawHeart(ctx,fade);}else{clearInterval(f);ctx.clearRect(0,0,300,270);}},35);setTimeout(launchSparks,380); setTimeout(()=>{ showCountdown(); setTimeout(()=>{ canSwipe=true; const hint=document.getElementById('swipeHint'); if(hint){ hint.style.display='block'; } },1200); },800);}}}
   canvas.addEventListener('mousedown',e=>{isDrawing=true;scratch(e);}); canvas.addEventListener('mouseup',()=>isDrawing=false); canvas.addEventListener('mouseleave',()=>isDrawing=false); canvas.addEventListener('mousemove',scratch);
   canvas.addEventListener('touchstart',e=>{isDrawing=true;scratch(e);},{passive:false}); canvas.addEventListener('touchmove',scratch,{passive:false}); canvas.addEventListener('touchend',()=>isDrawing=false);
 }
+
+document.querySelectorAll('#rsvpForm input, #rsvpForm textarea').forEach(el=>{
+  el.addEventListener('focus', ()=>{
+    el.removeAttribute('readonly');
+    setTimeout(()=>{ if(canSwipe){ eventPageEl.style.scrollSnapType='none'; document.getElementById('rsvpSnap').scrollIntoView({behavior:'smooth', block:'start'}); } },200);
+  });
+  el.addEventListener('blur', ()=>{
+    el.setAttribute('readonly','');
+    setTimeout(()=>{ if(canSwipe) eventPageEl.style.scrollSnapType='y mandatory'; },300);
+  });
+});
+
 document.getElementById('rsvpForm').addEventListener('submit', async(e)=>{
   e.preventDefault();
   const f=new FormData(e.target);
   const data={name:f.get('name'), city:f.get('city'), guests:f.get('guests'), events:f.getAll('events').join(', '), message:f.get('message')};
   await fetch('https://script.google.com/macros/s/AKfycbyQm0ewRL3ROpYSZ_wt_dB5rZyzcVa9PXbgpESqM_LBn50HJC5IlYgMW1qTo-M6G5yk0g/exec',{method:'POST', mode:'no-cors', body:JSON.stringify(data)});
-  document.getElementById('rsvpMsg').style.display='block';
-  e.target.reset();
+  document.getElementById('rsvpMsg').style.display='block'; e.target.reset();
   setTimeout(()=>document.getElementById('rsvpMsg').style.display='none',4000);
 });
+
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
     navigator.serviceWorker.register('./sw.js').then(()=>console.log('PWA ready')).catch(()=>{});
   });
 }
-const petalEmojis = ['🍂','🌼','🌸','🌹','🌺','🪷','🌻','🍁','🍃'];
-const container = document.getElementById('petals');
-function createPetal() {
-  const petal = document.createElement('div');
-  petal.className = 'petal';
-  petal.innerText = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
-  petal.style.left = Math.random() * 100 + 'vw';
-  petal.style.animationDuration = (9 + Math.random() * 3) + 's';
-  petal.style.fontSize = (16 + Math.random() * 8) + 'px';
-  container.appendChild(petal);
-  setTimeout(() => petal.remove(), 12000);
-}
-setInterval(createPetal, 3500);
-createPetal();
-setTimeout(createPetal, 1800);
-
-
-document.querySelectorAll('#rsvpForm input, #rsvpForm textarea').forEach(el=>{
- el.addEventListener('focus',()=>{
-  setTimeout(()=>{
-    document.getElementById('eventPage').style.scrollSnapType='none';
-    document.getElementById('rsvpSnap').scrollIntoView({behavior:'smooth', block:'start'});
-  },300);
- });
- el.addEventListener('blur',()=>{
-  setTimeout(()=>{ document.getElementById('eventPage').style.scrollSnapType='y mandatory'; },300);
- });
-});
-
-
-// Fix keyboard scroll + completely block autofill strip
-const rsvpSnap = document.getElementById('rsvpSnap');
-const eventPageEl = document.getElementById('eventPage');
-document.querySelectorAll('#rsvpForm input, #rsvpForm textarea').forEach(el=>{
-  el.addEventListener('focus', ()=>{
-    el.removeAttribute('readonly');
-    setTimeout(()=>{
-      eventPageEl.style.scrollSnapType='none';
-      rsvpSnap.scrollIntoView({behavior:'smooth', block:'start'});
-    },200);
-  });
-  el.addEventListener('blur', ()=>{
-    el.setAttribute('readonly','');
-    setTimeout(()=>{ eventPageEl.style.scrollSnapType='y mandatory'; },300);
-  });
-});
+const petalEmojis=['🍂','🌼','🌸','🌹','🌺','🪷','🌻','🍁','🍃']; const container=document.getElementById('petals');
+function createPetal(){ const petal=document.createElement('div'); petal.className='petal'; petal.innerText=petalEmojis[Math.floor(Math.random()*petalEmojis.length)]; petal.style.left=Math.random()*100+'vw'; petal.style.animationDuration=(9+Math.random()*3)+'s'; petal.style.fontSize=(16+Math.random()*8)+'px'; container.appendChild(petal); setTimeout(()=>petal.remove(),12000); }
+setInterval(createPetal,3500); createPetal(); setTimeout(createPetal,1800);
 </script>
 </body>
 </html>
