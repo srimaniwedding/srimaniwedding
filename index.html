@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
@@ -7,6 +8,18 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#800000">
+
+<!-- PERFORMANCE OPTIMIZATION START -->
+<link rel="preconnect" href="https://www.google.com" crossorigin>
+<link rel="preconnect" href="https://script.google.com">
+<link rel="dns-prefetch" href="https://www.google.com">
+<link rel="dns-prefetch" href="https://script.google.com">
+<link rel="preload" as="image" href="door-poster.jpg" fetchpriority="high">
+<link rel="preload" as="video" href="door-open.mp4" type="video/mp4">
+<link rel="preload" as="video" href="envelope.mp4" type="video/mp4">
+<link rel="preload" as="audio" href="sample.mp3" type="audio/mpeg">
+<!-- PERFORMANCE OPTIMIZATION END -->
+
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -16,6 +29,8 @@
 <meta property="og:url" content="https://srimaniwedding.vercel.app/">
 <meta property="og:image" content="https://srimaniwedding.vercel.app/cover-v3.jpg">
 <meta property="og:type" content="website">
+
+
 
 <style>
   html,body{margin:0;padding:0;height:100%;background:#000;font-family:Arial,sans-serif;overflow:hidden}
@@ -122,16 +137,25 @@
           <div style="background:#800000; color:#FFFAF0; border-radius:12px; padding:10px 14px; min-width:62px;"><div id="cdMins" style="font-size:22px; font-weight:bold; line-height:1;">00</div><div style="font-size:10px; letter-spacing:1px; margin-top:4px;">MINS</div></div>
         </div>
         <p style="margin-top:10px; font-size:12px; color:#800000; opacity:0.8;">10th Nov 2026 - 6:30 PM</p>
+
+
+<!-- Add to Calendar Button -->
+<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Srimani+Wedding+Reception&dates=20261110T130000Z/20261110T160000Z&details=Reception+of+Srimani+at+Pon+Thamarai+Mahal%2C+Elakkadai+-+Join+us+to+celebrate!&location=Pon+Thamarai+Mahal%2C+Elakkadai" 
+target="_blank" 
+style="display:inline-block; padding:12px 24px; background:#C19A6B; color:white; border-radius:30px; text-decoration:none; font-weight:bold; margin:15px 0;">
+📅 Add to Calendar
+</a>
+
       </div>
 
       <p id="swipeHint" style="margin-top:20px;color:#800000;font-size:14px;opacity:0.7;animation:bounce 2s infinite; display:none;">↓ Swipe up for details</p>
     </div>
 
-    <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="uppu-sakarai.mp4" type="video/mp4"></video></div></div>
-    <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="nalangu.mp4" type="video/mp4"></video></div></div>
-    <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="mappillai-azhaippu.mp4" type="video/mp4"></video></div></div>
-    <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="reception.mp4" type="video/mp4"></video></div></div>
-    <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="muhurtham.mp4" type="video/mp4"></video></div></div>
+    <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline preload="metadata" fetchpriority="low"><source src="uppu-sakarai.mp4" type="video/mp4"></video></div></div>
+    <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline preload="metadata" fetchpriority="low"><source src="nalangu.mp4" type="video/mp4"></video></div></div>
+    <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline preload="metadata" fetchpriority="low"><source src="mappillai-azhaippu.mp4" type="video/mp4"></video></div></div>
+    <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline preload="metadata" fetchpriority="low"><source src="reception.mp4" type="video/mp4"></video></div></div>
+    <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline preload="metadata" fetchpriority="low"><source src="muhurtham.mp4" type="video/mp4"></video></div></div>
 
     <div class="snap-section">
       <div style="max-width:520px;margin:0 auto;text-align:center;width:100%; background: #FFFAF0;padding:20px; border-radius:12px; box-shadow:0 4px 20px rgba(128,0,0,0.08);">
