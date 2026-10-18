@@ -8,8 +8,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#800000">
-
-<!-- PERFORMANCE OPTIMIZATION START -->
 <link rel="preconnect" href="https://www.google.com" crossorigin>
 <link rel="preconnect" href="https://script.google.com">
 <link rel="dns-prefetch" href="https://www.google.com">
@@ -18,8 +16,6 @@
 <link rel="preload" as="video" href="door-open.mp4" type="video/mp4">
 <link rel="preload" as="video" href="envelope.mp4" type="video/mp4">
 <link rel="preload" as="audio" href="sample.mp3" type="audio/mpeg">
-<!-- PERFORMANCE OPTIMIZATION END -->
-
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -29,8 +25,6 @@
 <meta property="og:url" content="https://srimaniwedding.vercel.app/">
 <meta property="og:image" content="https://srimaniwedding.vercel.app/cover-v3.jpg">
 <meta property="og:type" content="website">
-
-
 
 <style>
   *{box-sizing:border-box}
@@ -48,7 +42,7 @@
   #welcomeStage.fadeOut{opacity:0}
   #welcomeCrop{position:fixed;inset:0;width:100vw;height:100dvh;background:#000;overflow:hidden}
   #welcomeCrop video{position:absolute;inset:0;width:100vw;height:100dvh;object-fit:cover;object-position:center center;background:#000}
-  #eventPage{position:fixed;inset:0;width:100%;height:100dvh;overflow-y:auto;overflow-x:hidden;display:none;background-color:#FFFAF0;background-image:url('wallpaper.png');background-repeat:repeat;background-size:380px auto;opacity:0;transition:opacity 0.6s ease;z-index:10;-webkit-overflow-scrolling:touch;scroll-snap-type:y mandatory}
+  #eventPage{position:fixed;inset:0;width:100%;height:100dvh;overflow-y:auto;overflow-x:hidden;display:none;background-color:#FFFAF0;background-image:url('wallpaper.png');background-repeat:repeat;background-size:380px auto;opacity:0;transition:opacity 0.6s ease;z-index:10;-webkit-overflow-scrolling:touch;scroll-snap-type:y mandatory; scroll-behavior:smooth;}
   #eventPage.show{display:block}
   #eventPage.visible{opacity:1}
   .btn{background:#800000;color:#fff;padding:12px 25px;border-radius:25px;border:none;cursor:pointer;width:100%;max-width:100%}
@@ -78,64 +72,68 @@
     #eventPage{background-size:280px auto}
     #video-wrapper{max-width:94vw!important;padding:0 1% 20px 1%!important}
   }
-
-/* FIX LOCATION HEIGHT */
 #locationSection{
-  min-height:auto !important;
-  height:auto !important;
-  padding:40px 12px !important;
-  align-items:flex-start !important;
-  overflow:visible !important;
+  min-height:100dvh !important;
+  height:100dvh !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  scroll-snap-align:start !important;
+  scroll-snap-stop:always !important;
+  padding:20px 12px !important;
+  box-sizing:border-box;
 }
 #locationSection > div{
+  width:92%;
+  max-width:520px;
   height:auto !important;
 }
-#locationSection iframe{height:380px !important;min-height:380px !important;display:block !important}
+#locationSection iframe{
+  height:380px !important;
+  min-height:380px !important;
+  display:block !important;
+  width:100% !important;
+  border:0;
+}
+#rsvpSnap{
+  min-height:100dvh !important;
+  height:auto !important;
+  scroll-snap-align:start !important;
+  scroll-snap-stop:always !important;
+  overflow:visible !important;
+}
 </style>
-
 <script defer src="/_vercel/insights/script.js"></script>
-
 </head>
 <body>
 <audio id="bgm" src="sample.mp3" loop preload="auto"></audio>
 <button id="muteBtn" style="position:fixed;top:10px;right:10px;z-index:9999;width:36px;height:36px;border-radius:50%;border:1px solid #D4AF37;background:rgba(0,0,0,0.5);color:#D4AF37;cursor:pointer;">🔊</button>
-
 <div id="home">
   <video id="doorVideo" src="door-open.mp4" muted playsinline preload="auto"></video>
   <button id="openBtn">OPEN</button>
 </div>
-
 <div id="welcomeStage">
   <div id="welcomeCrop"><video id="welcomeVideo" src="ketimelam.mp4" playsinline preload="auto"></video></div>
 </div>
-
 <div id="eventPage">
   <div class="floral-side floral-left"></div>
   <div class="floral-side floral-right"></div>
   <div class="petals" id="petals"></div>
-
   <div class="main-wrapper">
-
     <div class="snap-section" id="envelopeSection">
-
 <div id="video-wrapper" style="position:relative;width:100%;max-width:520px;margin:0 auto;overflow:hidden;border-radius:12px;background:#fffaf0;padding:0 26px 26px 26px;box-sizing:border-box; transform: translateX(14px);">
 <br><br>
         <video autoplay muted loop playsinline style="width:100%;display:block;transform:scale(1.18);transform-origin:center;object-fit:cover;border-radius:12px;"><source src="envelope.mp4" type="video/mp4"></video>
-
 	<div style="position:absolute;top:45%;left:48%;transform:translate(-50%,-50%);width:45%;aspect-ratio:300/270;">
-
           <div style="position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;font-size:clamp(14px,3.5vw,20px);font-weight:bold;color:#FFFF00;padding-right:6%;padding-top:46%;">11<sup style="font-size:0.55em;vertical-align:super;position:relative;top:-4px;margin-left:1px;text-transform:lowercase;">th</sup>&nbsp;Nov 2026</div>
           <canvas id="scratch-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;touch-action:none;"></canvas>
           <canvas id="dissolve-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></canvas>
         </div>
-
 <div id="scratchHint" style="position:absolute;top:47%;left:48%;transform:translate(-50%,-50%);width:90%;pointer-events:none;text-align:center;line-height:1.4;">
-
           <div style="margin:0;font-size:13px;color:#F2EFE9;font-weight:bold;letter-spacing:1px;">SCRATCH</div>
           <div style="margin:6px 0 0 0;font-size:13px;color:#F2EFE9;font-weight:bold;letter-spacing:1px;">HERE</div>
         </div>
       </div>
-
       <div id="countdownWrap" style="display:none; margin-top:28px; text-align:center; opacity:0; transition: opacity 0.8s ease;">
         <p style="font-family:serif; color:#800000; font-size:15px; letter-spacing:1px; margin-bottom:12px; font-weight:bold;">RECEPTION BEGINS IN</p>
         <div style="display:flex; gap:10px; justify-content:center;">
@@ -144,54 +142,37 @@
           <div style="background:#800000; color:#FFFAF0; border-radius:12px; padding:10px 14px; min-width:62px;"><div id="cdMins" style="font-size:22px; font-weight:bold; line-height:1;">00</div><div style="font-size:10px; letter-spacing:1px; margin-top:4px;">MINS</div></div>
         </div>
         <p style="margin-top:10px; font-size:12px; color:#800000; opacity:0.8;">10th Nov 2026 - 6:30 PM</p>
-
-
-<!-- Add to Calendar Button -->
 <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Srimani+Wedding+Reception&dates=20261110T130000Z/20261110T160000Z&details=Reception+of+Srimani+at+Pon+Thamarai+Mahal%2C+Elakkadai+-+Join+us+to+celebrate!&location=Pon+Thamarai+Mahal%2C+Elakkadai" 
 target="_blank" 
 style="display:inline-block; padding:12px 24px; background:#C19A6B; color:white; border-radius:30px; text-decoration:none; font-weight:bold; margin:15px 0;">
 📅 Add to Calendar
 </a>
-
       </div>
-
-
       <p id="swipeHint" style="margin-top:20px;color:#800000;font-size:14px;opacity:0.7;animation:bounce 2s infinite; display:none;">↓ Swipe up for details</p>
     </div>
-
     <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline preload="metadata" fetchpriority="low"><source src="uppu-sakarai.mp4" type="video/mp4"></video></div></div>
     <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline preload="metadata" fetchpriority="low"><source src="nalangu.mp4" type="video/mp4"></video></div></div>
     <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline preload="metadata" fetchpriority="low"><source src="mappillai-azhaippu.mp4" type="video/mp4"></video></div></div>
     <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline preload="metadata" fetchpriority="low"><source src="reception.mp4" type="video/mp4"></video></div></div>
     <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline preload="metadata" fetchpriority="low"><source src="muhurtham.mp4" type="video/mp4"></video></div></div>
-
-    <div id="locationSection" style="width:100%;padding:50px 0;display:flex;justify-content:center;box-sizing:border-box;">
-  <div style="max-width:520px;width:92%;background:#FFFAF0;padding:20px;border-radius:12px;box-shadow:0 4px 20px rgba(128,0,0,0.08);box-sizing:border-box;text-align:center;">
+    <div class="snap-section" id="locationSection">
+  <div style="background:#FFFAF0;padding:20px;border-radius:12px;box-shadow:0 4px 20px rgba(128,0,0,0.08);box-sizing:border-box;text-align:center;">
     <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">Location</h3>
     <p style="margin-bottom:15px;font-size:16px;">Pon Thamarai Mahal,<br>Erode to Muthur Main Road, Ellakadai,<br>Tamil Nadu 638109</p>
-    
     <div style="width:100%;height:380px;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.15);background:#eee;">
       <iframe src="https://www.google.com/maps?q=Pon+Thamarai+Mahal,+Erode+to+Muthur+Main+Road,+Ellakadai,+Tamil+Nadu+638109&z=15&output=embed" 
         style="width:100%;height:380px !important;min-height:380px !important;border:0;display:block;" 
         width="100%" height="380" allowfullscreen="" loading="eager"></iframe>
     </div>
-
     <a href="https://www.google.com/maps/search/?api=1&query=Pon+Thamarai+Mahal+Erode+to+Muthur+Main+Road+Ellakadai+Tamil+Nadu+638109" target="_blank" style="display:inline-block;margin-top:15px;padding:12px 25px;background:#800000;color:#fff;text-decoration:none;border-radius:25px;font-size:16px;">📍 Get Directions</a>
   </div>
 </div>
-
-
-<div class="snap-section" id="rsvpSnap" style="overflow-y:auto; -webkit-overflow-scrolling:touch; align-items:center; justify-content:center; padding-top:30px; padding-bottom:30px;">
-
+<div class="snap-section" id="rsvpSnap">
 <div id="rsvp" style="background:#FFFAF0;padding:20px;border-radius:12px;max-width:520px;margin:0 auto;width:100%;box-sizing:border-box;box-shadow:0 4px 20px rgba(128,0,0,0.08);">
-
-
         <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">We are so excited to celebrate this new chapter with you!</h3>
         <h2 style="margin-bottom:8px;">RSVP</h2>
         <p style="margin-bottom:20px;">Kindly respond by 6<sup>st</sup> Nov 2026</p>
-
         <form id="rsvpForm" autocomplete="off" style="max-width:340px;margin:0 auto;text-align:left;">
-
           <label>Name *</label><br>
 <input type="text" name="name" readonly onfocus="this.removeAttribute('readonly')" autocomplete="new-password" required style="width:90%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"><br>
           <label>City *</label><br>
@@ -203,19 +184,14 @@ style="display:inline-block; padding:12px 24px; background:#C19A6B; color:white;
 <label><input type="checkbox" name="events" value="Muhurtham"> Muhurtham (11 Nov)</label><br></div>
           <label>Blessings / Message</label><br>
 <textarea name="message" readonly onfocus="this.removeAttribute('readonly')" autocomplete="new-password" rows="3" style="width:90%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc;"></textarea><br>
-
           <button type="submit" class="btn" style="width:75%;display:block;margin:5px auto;">Send RSVP</button>
-
           <p id="rsvpMsg" style="text-align:center;margin-top:12px;display:none;color:green;">Thank you! Your response has been recorded.</p>
         </form>
       </div>
     </div>
-
   </div>
 </div>
-
 <canvas id="sparkCanvas"></canvas>
-
 <script>
 const bgm=document.getElementById('bgm'); bgm.volume=0.3; bgm.loop=true; bgm.preload="auto";
 const doorVideo=document.getElementById('doorVideo'); const welcomeStage=document.getElementById('welcomeStage'); const welcomeVideo=document.getElementById('welcomeVideo'); const home=document.getElementById('home'); const eventPage=document.getElementById('eventPage'); const openBtn=document.getElementById('openBtn');
@@ -225,13 +201,11 @@ function showEvent(){ if(window._shown) return; window._shown=true; eventPage.cl
 openBtn.addEventListener('click',()=>{ window.scrollTo(0,1); bgm.volume=0.3; bgm.loop=true; bgm.play().then(()=>{ bgm.muted=false; bgm.volume=0.3; }).catch(()=>{}); openBtn.style.display='none'; doorVideo.muted=false; doorVideo.currentTime=0; doorVideo.play().catch(()=>{}); setTimeout(showWelcome,4300); });
 welcomeVideo.addEventListener('ended',showEvent);
 document.getElementById('muteBtn').addEventListener('click',function(e){ e.stopPropagation(); bgm.muted=!bgm.muted; if(!bgm.muted) bgm.volume=0.3; this.textContent=bgm.muted?'🔇':'🔊'; welcomeVideo.muted=bgm.muted; });
-
 let canSwipe=false; let lastScroll=0; const eventPageEl=document.getElementById('eventPage');
 function isScratchArea(t){ return t.closest('#video-wrapper') || t.closest('#scratch-card') || t.closest('#envelopeSection'); }
 eventPageEl.addEventListener('scroll',()=>{ if(!canSwipe){ eventPageEl.scrollTop=0; return; } const st=eventPageEl.scrollTop; if(st>100 && st>lastScroll){ window.scrollTo(0,1); } lastScroll=st; });
 eventPageEl.addEventListener('touchmove', (e)=>{ if(!canSwipe && !isScratchArea(e.target)) e.preventDefault(); },{passive:false});
 eventPageEl.addEventListener('wheel', (e)=>{ if(!canSwipe && !isScratchArea(e.target)) e.preventDefault(); },{passive:false});
-
 const targetDate=new Date("2026-11-10T18:30:00+05:30").getTime();
 function updateCountdown(){
   const now=new Date().getTime(); const diff=targetDate-now;
@@ -244,7 +218,6 @@ function updateCountdown(){
   document.getElementById('cdMins').innerText=String(mins).padStart(2,'0');
 }
 function showCountdown(){ const wrap=document.getElementById('countdownWrap'); if(!wrap) return; wrap.style.display='block'; setTimeout(()=> wrap.style.opacity='1',100); updateCountdown(); setInterval(updateCountdown,60000); }
-
 let scratchInited=false;
 function initScratch(){
   if(scratchInited) return; scratchInited=true;
@@ -265,7 +238,6 @@ function initScratch(){
   canvas.addEventListener('mousedown',e=>{isDrawing=true;scratch(e);}); canvas.addEventListener('mouseup',()=>isDrawing=false); canvas.addEventListener('mouseleave',()=>isDrawing=false); canvas.addEventListener('mousemove',scratch);
   canvas.addEventListener('touchstart',e=>{isDrawing=true;scratch(e);},{passive:false}); canvas.addEventListener('touchmove',scratch,{passive:false}); canvas.addEventListener('touchend',()=>isDrawing=false);
 }
-
 document.querySelectorAll('#rsvpForm input, #rsvpForm textarea').forEach(el=>{
   el.addEventListener('focus', ()=>{
     el.removeAttribute('readonly');
@@ -276,7 +248,6 @@ document.querySelectorAll('#rsvpForm input, #rsvpForm textarea').forEach(el=>{
     setTimeout(()=>{ if(canSwipe) eventPageEl.style.scrollSnapType='y mandatory'; },300);
   });
 });
-
 document.getElementById('rsvpForm').addEventListener('submit', async(e)=>{
   e.preventDefault();
   const f=new FormData(e.target);
@@ -285,7 +256,6 @@ document.getElementById('rsvpForm').addEventListener('submit', async(e)=>{
   document.getElementById('rsvpMsg').style.display='block'; e.target.reset();
   setTimeout(()=>document.getElementById('rsvpMsg').style.display='none',4000);
 });
-
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
     navigator.serviceWorker.register('./sw.js').then(()=>console.log('PWA ready')).catch(()=>{});
