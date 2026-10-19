@@ -57,9 +57,25 @@
 #eventPage::before{content:"";position:fixed;inset:0;background:rgba(255,250,240,0.72);z-index:-1;pointer-events:none}
 
 .snap-section{
-  height:100dvh;min-height:100dvh;max-height:100dvh;
-  scroll-snap-align:start;scroll-snap-stop:always;
-  flex-shrink:0;overflow:hidden;
+  height:100svh;
+  min-height:100svh;
+  scroll-snap-align:center !important;
+  scroll-snap-stop:always;
+  display:flex !important;
+  flex-direction:column;
+  justify-content:center !important;
+  align-items:center !important;
+  padding:0;
+  margin:0;
+  overflow:hidden;
+}
+
+#eventPage{
+  height:100dvh;
+  overflow-y:scroll;
+  scroll-snap-type:y mandatory;
+  scroll-padding:0 !important;
+  overscroll-behavior-y:contain;
 }
 
   #envelopeSection{padding-top:15vh;padding-bottom:15vh}
