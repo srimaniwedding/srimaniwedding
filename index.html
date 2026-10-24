@@ -4,16 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
 <meta name="theme-color" content="#800000">
-<link rel="preload" as="image" href="door-poster.jpg">
+<link rel="preload" as="image" href="door-open.jpg">
 <style>
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;height:100%;background:#000;font-family:Arial,sans-serif;overflow:hidden;max-width:100vw}
   body{min-height:100dvh}
-  #home{position:fixed;inset:0;background:#3a2a1a url('door-poster.jpg') center/cover no-repeat;z-index:30;transition:opacity 0.6s ease}
+  #home{position:fixed;inset:0;background:#3a2a1a url('door-open.jpg') center/cover no-repeat;z-index:30;transition:opacity 0.6s ease}
   #home.hide{opacity:0;pointer-events:none}
-  #doorVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
+  #doorVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s; background:#3a2a1a url('door-open.jpg') center/cover no-repeat; transform:translateZ(0);}
   #doorVideo.ready{opacity:1}
   #openBtn{position:absolute;top:52%;left:52%;transform:translate(-50%,-50%);width:110px;height:110px;border-radius:50%;border:none;cursor:pointer;z-index:2;background:radial-gradient(circle at 30% 30%, #ffefb0, #f5c542 40%, #b8912a 100%);font-weight:bold;color:#5a4210}
+  #openBtn:disabled{opacity:0.7; font-size:12px;}
+  /* rest of your CSS same */
   #welcomeStage{position:fixed;inset:0;background:#000;z-index:20;display:none;opacity:0;transition:opacity 0.6s ease}
   #welcomeStage.show{display:flex;opacity:1}
   #welcomeStage.fadeOut{opacity:0}
@@ -31,50 +33,51 @@
   .main-wrapper{text-align:center;position:relative;width:100%;display:contents}
   #eventPage::before{content:"";position:fixed;inset:0;background:rgba(255,250,240,0.72);z-index:-1;pointer-events:none}
   .snap-section{height:100svh;min-height:100svh;scroll-snap-align:start !important;scroll-snap-stop:always;display:flex !important;flex-direction:column;justify-content:center !important;align-items:center !important;padding:0;margin:0;overflow:hidden}
-  #envelopeSection{padding:0 12px}
-  .video-box{max-width:min(460px,90vw);margin:0 auto;width:100%}
-  .video-box video{width:100%;border-radius:12px;display:block}
-  #video-wrapper{position:relative;width:100%;max-width:520px;margin:0 auto;overflow:visible;border-radius:12px;background:#fffaf0;padding:0 20px 26px 20px;box-sizing:border-box}
-  .petals{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1000;overflow:hidden}
-  .petal{position:absolute;top:-20px;font-size:18px;animation:fall linear forwards}
-  @keyframes fall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(360deg);opacity:0}}
-  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-  #locationSection{min-height:100dvh !important;height:100dvh !important;display:flex !important;align-items:center !important;justify-content:center !important;scroll-snap-align:start !important;padding:20px 12px !important}
-  #locationSection > div{width:92%;max-width:520px}
-  #locationSection iframe{height:380px !important;display:block !important;width:100% !important;border:0}
-  #rsvpSnap{min-height:100dvh !important;height:auto !important;scroll-snap-align:start !important;overflow:visible !important}
+#envelopeSection{padding:0 12px 30px 12px !important;background-color:#FFFAF0 !important;background-image:url('wallpaper.png') !important;background-repeat:repeat !important;background-position:top left !important;background-size:520px auto !important;}
+#video-wrapper{position:relative;width:100%;max-width:520px;margin:0 auto;overflow:visible;border-radius:12px;background:transparent !important;padding:0 20px 16px 20px;box-sizing:border-box}
+.video-box{max-width:min(460px,90vw);margin:0 auto 28px auto !important;width:100%;background:transparent !important;}
+.video-box:last-child{margin-bottom:0 !important}
+.video-box video{width:100%;border-radius:12px;display:block;background-color:#FFFAF0 !important;background-image:url('wallpaper.png') !important;background-repeat:repeat !important;background-position:center !important;background-size:650px auto !important;object-fit:contain !important;}
+.petals{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1000;overflow:hidden}
+.petal{position:absolute;top:-20px;font-size:18px;animation:fall linear forwards}
+@keyframes fall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(360deg);opacity:0}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+#locationSection{min-height:100dvh !important;height:100dvh !important;display:flex !important;align-items:center !important;justify-content:center !important;scroll-snap-align:start !important;padding:5px 12px !important;background-color:#FFFAF0;background-image:url('wallpaper.png');background-repeat:repeat;background-position:top left;background-size:650px auto;}
+#locationSection > div{width:92%;max-width:520px}
+#locationSection iframe{height:380px !important;display:block !important;width:100% !important;border:0}
+#rsvpSnap{min-height:100dvh !important;height:auto !important;scroll-snap-align:start !important;overflow:visible !important;background-color:#FFFAF0 !important;background-image:url('wallpaper.png') !important;background-repeat:repeat !important;background-position:top left !important;background-size:650px auto !important;}
 </style>
 </head>
 <body>
 <audio id="bgm" src="sample.mp3" loop preload="auto"></audio>
 <button id="muteBtn" style="position:fixed;top:10px;right:10px;z-index:9999;width:36px;height:36px;border-radius:50%;border:1px solid #D4AF37;background:rgba(0,0,0,0.5);color:#D4AF37;cursor:pointer;">🔊</button>
+
 <div id="home">
-  <video id="doorVideo" src="door-open.mp4" muted playsinline preload="auto"></video>
-  <button id="openBtn">OPEN</button>
+  <video id="doorVideo" muted playsinline preload="auto" poster="door-open.jpg">
+    <source src="door-open.webm" type="video/webm">
+    <source src="door-open.mp4" type="video/mp4">
+  </video>
+  <button id="openBtn" disabled>Loading... 0%</button>
 </div>
+
 <div id="welcomeStage"><div id="welcomeCrop"><video id="welcomeVideo" src="ketimelam.mp4" playsinline preload="auto"></video></div></div>
+
 <div id="eventPage">
   <div class="floral-side floral-left"></div><div class="floral-side floral-right"></div>
   <div class="petals" id="petals"></div>
   <div class="main-wrapper">
-
-    <!-- ENVELOPE - FIXED & LOCKED -->
     <div class="snap-section" id="envelopeSection">
       <div id="video-wrapper">
         <video autoplay muted loop playsinline style="width:100%;display:block;transform:scale(1.18);transform-origin:center;object-fit:cover;border-radius:12px;"><source src="envelope.mp4" type="video/mp4"></video>
-        
         <div id="dateContainer" style="position:absolute;top:40%;left:47%;transform:translate(-50%,-50%);width:45%;aspect-ratio:300/270;">
-
           <div id="weddingDate" style="position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;font-size:clamp(14px,3.5vw,20px);font-weight:bold;color:#FFFF00;padding-right:6%;padding-top:45%;">11<sup style="font-size:0.55em;vertical-align:super;position:relative;top:-4px;margin-left:1px;text-transform:lowercase;">th</sup>&nbsp;Nov 2026</div>
           <canvas id="scratch-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;touch-action:none;"></canvas>
           <canvas id="dissolve-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></canvas>
         </div>
-
         <div id="scratchHint" style="position:absolute;top:45%;left:47%;transform:translate(-50%,-50%);width:90%;pointer-events:none;text-align:center;line-height:1.4;">
           <div style="font-size:13px;color:#F2EFE9;font-weight:bold;letter-spacing:1px;">SCRATCH</div>
           <div style="margin-top:6px;font-size:13px;color:#F2EFE9;font-weight:bold;letter-spacing:1px;">HERE</div>
         </div>
-
         <div id="countdownWrap" style="display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:18px;text-align:center;opacity:0;transition:opacity 0.8s ease;width:100%;">
           <p style="font-family:serif;color:#800000;font-size:15px;letter-spacing:1px;margin-bottom:12px;font-weight:bold;">RECEPTION BEGINS IN</p>
           <div style="display:flex;gap:10px;justify-content:center;">
@@ -82,29 +85,23 @@
             <div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:10px 14px;min-width:62px;"><div id="cdHours" style="font-size:22px;font-weight:bold;">00</div><div style="font-size:10px;margin-top:4px;">HOURS</div></div>
             <div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:10px 14px;min-width:62px;"><div id="cdMins" style="font-size:22px;font-weight:bold;">00</div><div style="font-size:10px;margin-top:4px;">MINS</div></div>
           </div>
-          
           <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Srimani+Wedding+Reception&dates=20261110T130000Z/20261110T160000Z&details=Reception+of+Srimani+at+Pon+Thamarai+Mahal%2C+Elakkadai&location=Pon+Thamarai+Mahal%2C+Elakkadai" target="_blank" style="display:inline-block;padding:12px 24px;background:#C19A6B;color:white;border-radius:30px;text-decoration:none;font-weight:bold;margin:15px 0;">📅 Add to Calendar</a>
         </div>
       </div>
-<!--<p style="margin-top:10px;font-size:12px;color:#800000;">10th Nov 2026 - 6:30 PM</p>
-      <p id="swipeHint" style="margin-top:20px;color:#800000;font-size:14px;opacity:0.7;animation:bounce 2s infinite;display:none;">↓ Swipe up for details</p> -->
     </div>
-
     <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="uppu-sakarai.mp4" type="video/mp4"></video></div></div>
     <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="nalangu.mp4" type="video/mp4"></video></div></div>
     <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="mappillai-azhaippu.mp4" type="video/mp4"></video></div></div>
     <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="reception.mp4" type="video/mp4"></video></div></div>
     <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="muhurtham.mp4" type="video/mp4"></video></div></div>
-
     <div class="snap-section" id="locationSection">
-      <div style="background:#FFFAF0;padding:20px;border-radius:12px;box-shadow:0 4px 20px rgba(128,0,0,0.08);text-align:center;">
-        <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">Location</h3>
-        <p style="margin-bottom:15px;font-size:16px;">Pon Thamarai Mahal,<br>Erode to Muthur Main Road, Ellakadai,<br>Tamil Nadu 638109</p>
-        <div style="width:100%;height:380px;border-radius:12px;overflow:hidden;background:#eee;"><iframe src="https://www.google.com/maps?q=Pon+Thamarai+Mahal,+Erode+to+Muthur+Main+Road,+Ellakadai,+Tamil+Nadu+638109&z=15&output=embed" style="width:100%;height:380px !important;border:0;display:block;" allowfullscreen="" loading="eager"></iframe></div>
-        <a href="https://www.google.com/maps/search/?api=1&query=Pon+Thamarai+Mahal+Erode+to+Muthur+Main+Road+Ellakadai+Tamil+Nadu+638109" target="_blank" style="display:inline-block;margin-top:15px;padding:12px 25px;background:#800000;color:#fff;text-decoration:none;border-radius:25px;font-size:16px;">📍 Get Directions</a>
+      <div style="background:rgba(255,250,240,0.92); padding:20px; border-radius:12px; box-shadow:0 4px 20px rgba(128,0,0,0.08); text-align:center;">
+        <h3 style="font-family:serif; color:#800000; margin-bottom:15px;">Location</h3>
+        <p style="margin-bottom:15px; font-size:16px;">Pon Thamarai Mahal,<br>Erode to Muthur Main Road, Ellakadai,<br>Tamil Nadu 638109</p>
+        <div style="width:100%; height:380px; border-radius:12px; overflow:hidden; background:#eee;"><iframe src="https://www.google.com/maps?q=Pon+Thamarai+Mahal,+Erode+to+Muthur+Main+Road,+Ellakadai,+Tamil+Nadu+638109&z=15&output=embed" style="width:100%; height:380px !important; border:0; display:block;" allowfullscreen="" loading="eager"></iframe></div>
+        <a href="https://www.google.com/maps/search/?api=1&query=Pon+Thamarai+Mahal+Erode+to+Muthur+Main+Road+Ellakadai+Tamil+Nadu+638109" target="_blank" style="display:inline-block; margin-top:15px; padding:12px 25px; background:#800000; color:#fff; text-decoration:none; border-radius:25px; font-size:16px;">📍 Get Directions</a>
       </div>
     </div>
-
     <div class="snap-section" id="rsvpSnap">
       <div id="rsvp" style="background:#FFFAF0;padding:20px;border-radius:12px;max-width:520px;margin:0 auto;width:100%;box-shadow:0 4px 20px rgba(128,0,0,0.08);">
         <h3 style="font-family:serif;color:#800000;margin-bottom:15px;">We are so excited to celebrate this new chapter with you!</h3>
@@ -126,10 +123,58 @@
 <script>
 const bgm=document.getElementById('bgm'); bgm.volume=0.3; bgm.loop=true;
 const doorVideo=document.getElementById('doorVideo'); const welcomeStage=document.getElementById('welcomeStage'); const welcomeVideo=document.getElementById('welcomeVideo'); const home=document.getElementById('home'); const eventPage=document.getElementById('eventPage'); const openBtn=document.getElementById('openBtn');
-doorVideo.addEventListener('canplay',()=>doorVideo.classList.add('ready'),{once:true}); doorVideo.load();
-let doorDone=false; function showWelcome(){ if(doorDone) return; doorDone=true; home.classList.add('hide'); setTimeout(()=>home.style.display='none',600); welcomeStage.classList.add('show'); welcomeVideo.currentTime=0; welcomeVideo.muted=bgm.muted; welcomeVideo.volume=0.3; welcomeVideo.play().catch(()=>{welcomeVideo.muted=true; welcomeVideo.play();}); }
+
+// --- NEW FIX FOR MOBILE INCOGNITO ---
+let audioUnlocked=false;
+function unlockAudio(){
+  if(audioUnlocked) return; audioUnlocked=true;
+  bgm.muted=true;
+  bgm.play().then(()=>{ bgm.pause(); bgm.currentTime=0; bgm.muted=false; }).catch(()=>{});
+}
+document.addEventListener('touchstart', unlockAudio, {once:true});
+document.addEventListener('click', unlockAudio, {once:true});
+
+doorVideo.addEventListener('progress', ()=>{
+  try{
+    const p = Math.round((doorVideo.buffered.end(0)/doorVideo.duration)*100);
+    if(p>0 && p<100 && !doorVideo.classList.contains('ready')){
+      openBtn.textContent = `Loading... ${p}%`;
+    }
+  }catch(e){}
+});
+
+doorVideo.addEventListener('canplaythrough', ()=>{
+  doorVideo.classList.add('ready');
+  doorVideo.currentTime = 0.05;
+  openBtn.disabled = false;
+  openBtn.textContent = 'OPEN';
+}, {once:true});
+
+doorVideo.load();
+// --- END FIX ---
+
+let doorDone=false; 
+function showWelcome(){ if(doorDone) return; doorDone=true; home.classList.add('hide'); setTimeout(()=>home.style.display='none',600); welcomeStage.classList.add('show'); welcomeVideo.currentTime=0; welcomeVideo.muted=bgm.muted; welcomeVideo.volume=0.3; welcomeVideo.play().catch(()=>{welcomeVideo.muted=true; welcomeVideo.play();}); }
 function showEvent(){ if(window._shown) return; window._shown=true; eventPage.classList.add('show'); document.body.style.overflow='auto'; document.documentElement.style.overflow='auto'; void eventPage.offsetWidth; eventPage.classList.add('visible'); window.scrollTo(0,1); setTimeout(()=>{ window.scrollTo(0,1); },300); setTimeout(initScratch,100); setTimeout(()=>{ welcomeStage.classList.add('fadeOut'); },50); setTimeout(()=>{ welcomeStage.style.display='none'; },700); }
-openBtn.addEventListener('click',()=>{ window.scrollTo(0,1); bgm.volume=0.3; bgm.loop=true; bgm.play().then(()=>{ bgm.muted=false; }).catch(()=>{}); openBtn.style.display='none'; doorVideo.muted=false; doorVideo.currentTime=0; doorVideo.play().catch(()=>{}); setTimeout(showWelcome,4300); });
+
+openBtn.addEventListener('click', async ()=>{
+  unlockAudio();
+  openBtn.disabled=true;
+  openBtn.style.opacity='0';
+  bgm.volume=0.3; bgm.loop=true;
+  try{
+    doorVideo.muted=true;
+    await doorVideo.play();
+    bgm.currentTime=0;
+    await bgm.play().catch(()=>{});
+    bgm.muted=false;
+    setTimeout(()=>{ doorVideo.muted=false; },150);
+  }catch(e){
+    doorVideo.play().catch(()=>{});
+  }
+  setTimeout(showWelcome,4300);
+});
+
 welcomeVideo.addEventListener('ended',showEvent);
 document.getElementById('muteBtn').addEventListener('click',function(e){ e.stopPropagation(); bgm.muted=!bgm.muted; this.textContent=bgm.muted?'🔇':'🔊'; welcomeVideo.muted=bgm.muted; });
 let canSwipe=false; let lastScroll=0; const eventPageEl=document.getElementById('eventPage');
