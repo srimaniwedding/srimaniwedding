@@ -46,6 +46,33 @@
 #locationSection > div{width:92%;max-width:520px}
 #locationSection iframe{height:380px !important;display:block !important;width:100% !important;border:0}
 #rsvpSnap{min-height:100dvh !important;height:auto !important;scroll-snap-align:start !important;overflow:visible !important;background-color:#FFFAF0 !important;background-image:url('wallpaper.png') !important;background-repeat:repeat !important;background-position:top left !important;background-size:650px auto !important;}
+
+/* Center RSVP for all mobiles */
+#rsvpSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+#rsvpSection label,
+#rsvpSection input,
+#rsvpSection select,
+#rsvpSection textarea,
+#messageBox,
+#rsvpSection .form-group,
+#rsvpSection .input-wrapper {
+  width: 100% !important;
+  max-width: 340px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box;
+}
+#rsvpSection label {
+  text-align: left;
+}
+
 </style>
 </head>
 <body>
