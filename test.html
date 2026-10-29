@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{margin:0;background:#000;color:#fff;font-family:Arial}
+#home{position:fixed;inset:0;background:url('door-open.jpg') center/cover}
+#openBtn{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:110px;height:110px;border-radius:50%;border:none;background:gold;font-weight:bold;font-size:18px;z-index:9999;cursor:pointer}
+</style>
+</head>
+<body>
+<audio id="bgm" src="sample.mp3" loop></audio>
+<div id="home">
+<button id="openBtn" type="button">OPEN</button>
+<video id="doorVideo" style="position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:1" muted playsinline poster="door-open.jpg">
+<source src="door-open.mp4" type="video/mp4">
+</video>
+</div>
 
+<script>
+const btn = document.getElementById('openBtn');
+const bgm = document.getElementById('bgm');
+const vid = document.getElementById('doorVideo');
+
+function openDoor(e){
+ console.log('clicked');
+ if(e){ e.preventDefault(); }
+ btn.style.display='none';
+ bgm.play().then(()=>{console.log('audio ok')}).catch(err=>console.log('audio err',err));
+ vid.muted=false;
+ vid.play().then(()=>{console.log('video ok')}).catch(err=>{vid.muted=true; vid.play()});
+}
+
+btn.addEventListener('click', openDoor);
+btn.addEventListener('touchend', (e)=>{ e.preventDefault(); openDoor(e); });
+</script>
+</body>
+</html>
