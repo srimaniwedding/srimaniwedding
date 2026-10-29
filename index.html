@@ -31,6 +31,47 @@ body{min-height:100dvh}
 #clickLayer{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;background:transparent}
 #openBtn{width:120px;height:120px;border-radius:50%;border:3px solid #fff;background:radial-gradient(circle at 30% 30%,#ffefb0,#f5c542 40%,#b8912a 100%);font-weight:bold;color:#5a4210;cursor:pointer}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+#rsvpSnap{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  padding: 20px 12px 40px !important;
+}
+#rsvp{
+  margin: 0 auto !important;
+  text-align:center;
+}
+#rsvp form{
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+
+/* Instagram Story style Swipe Up */
+.swipe-up-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  margin-top:22px;
+  animation:bounce 1.6s infinite;
+}
+.swipe-line{
+  width:42px;
+  height:4px;
+  background:rgba(128,0,0,0.25);
+  border-radius:20px;
+}
+.swipe-arrow{
+  font-size:20px;
+  color:#800000;
+  line-height:1;
+}
+.swipe-text{
+  font-size:13px;
+  letter-spacing:2px;
+  color:#800000;
+  font-weight:bold;
+}
 </style>
 </head>
 <body>
@@ -50,7 +91,12 @@ body{min-height:100dvh}
 <div id="countdownWrap" style="display:none;position:absolute;top:98%;left:50%;transform:translateX(-50%);text-align:center;opacity:0;transition:opacity .8s;width:100vw;max-width:520px;z-index:5">
 <p style="font-family:serif;color:#800000;font-size:15px;letter-spacing:1px;margin-bottom:10px;font-weight:bold">RECEPTION BEGINS IN</p><div style="display:flex;gap:10px;justify-content:center"><div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:12px 14px;min-width:62px"><div id="cdDays" style="font-size:22px;font-weight:bold">00</div><div style="font-size:10px;margin-top:4px">DAYS</div></div><div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:10px 14px;min-width:62px"><div id="cdHours" style="font-size:22px;font-weight:bold">00</div><div style="font-size:10px;margin-top:4px">HOURS</div></div><div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:10px 14px;min-width:62px"><div id="cdMins" style="font-size:22px;font-weight:bold">00</div><div style="font-size:10px;margin-top:4px">MINS</div></div></div>
 <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Srimani+Wedding+Reception&dates=20261110T130000Z/20261110T160000Z&details=Reception+of+Srimani+at+Pon+Thamarai+Mahal%2C+Elakkadai&location=Pon+Thamarai+Mahal%2C+Elakkadai" target="_blank" style="display:inline-block;padding:10px 24px;background:#C19A6B;color:white;border-radius:30px;text-decoration:none;font-weight:bold;margin:10px 0">📅 Add to Calendar</a>
-<p id="swipeHint" style="margin-top:10px;color:#800000;font-size:14px;opacity:0.7;animation:bounce 2s infinite; display:none;">↓ Swipe up for more details</p>
+
+<div class="swipe-up-wrap">
+  <div class="swipe-line"></div>
+  <div class="swipe-arrow">⌃</div>
+  <div class="swipe-text">SWIPE UP</div>
+</div>
 </div></div></div>
 
 <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="uppu-sakarai.mp4" type="video/mp4"></video><p style="margin-top:20px;color:#800000;font-size:16px;opacity:0.7;animation:bounce 2s infinite;text-align:center;">↓ Swipe up for more details</p></div></div>
