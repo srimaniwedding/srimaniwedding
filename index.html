@@ -55,7 +55,7 @@ body{min-height:100dvh}
 </audio>
 
 <!-- Your video must have muted + playsinline -->
-<video id="door-video" muted playsinline preload="auto">
+<video id="door-video" video preload="none" muted playsinline>
   <source src="/door-open.mp4" type="video/mp4">
 </video>
 
@@ -136,7 +136,24 @@ body{min-height:100dvh}
 const bgm=document.getElementById('bgm');bgm.volume=.3;const doorVideo=document.getElementById('doorVideo'),welcomeStage=document.getElementById('welcomeStage'),welcomeVideo=document.getElementById('welcomeVideo'),home=document.getElementById('home'),eventPage=document.getElementById('eventPage'),openBtn=document.getElementById('openBtn');let audioUnlocked=!1;function unlockAudio(){if(audioUnlocked)return;audioUnlocked=!0;bgm.muted=!0;bgm.play().then(()=>{bgm.pause();bgm.currentTime=0;bgm.muted=!1}).catch(()=>{})}document.addEventListener('touchstart',unlockAudio,{once:true});document.addEventListener('click',unlockAudio,{once:true});
 doorVideo.addEventListener('canplaythrough',()=>{doorVideo.classList.add('ready');openBtn.disabled=!1;openBtn.textContent='OPEN'},{once:true});
 doorVideo.addEventListener('loadeddata',()=>{doorVideo.classList.add('ready');openBtn.disabled=!1;openBtn.textContent='OPEN'},{once:true});
-setTimeout(()=>{if(openBtn.disabled){doorVideo.classList.add('ready');openBtn.disabled=!1;openBtn.textContent='OPEN'}},3000);doorVideo.load();
+// setTimeout(()=>{if(openBtn.disabled){doorVideo.classList.add('ready');openBtn.disabled=!1;openBtn.textContent='OPEN'}},3000);doorVideo.load();
+  // Force hide loader after 3 seconds even if video not loaded
+setTimeout(() => {
+  const loader = document.getElementById('loader'); // or .loader / #loading
+  if (loader) {
+    loader.style.display = 'none';
+  }
+  const main = document.getElementById('main-content'); // your main site id
+  if (main) {
+    main.style.display = 'block';
+  }
+}, 3000); // 3 seconds
+
+// Also hide on window load
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  if (loader) loader.style.display = 'none';
+});
 let doorDone=!1;function showWelcome(){if(doorDone)return;doorDone=!0;home.classList.add('hide');setTimeout(()=>home.style.display='none',600);welcomeStage.classList.add('show');welcomeVideo.currentTime=0;welcomeVideo.muted=bgm.muted;welcomeVideo.play().catch(()=>{welcomeVideo.muted=!0;welcomeVideo.play()})}function showEvent(){if(window._shown)return;window._shown=!0;eventPage.classList.add('show');document.body.style.overflow='auto';document.documentElement.style.overflow='auto';void eventPage.offsetWidth;eventPage.classList.add('visible');setTimeout(initScratch,100);setTimeout(()=>welcomeStage.classList.add('fadeOut'),50);setTimeout(()=>welcomeStage.style.display='none',700)}
 const openBtn = document.getElementById('open-button');
 const video = document.getElementById('your-video'); // door-open.mp4
