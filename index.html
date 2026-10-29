@@ -76,15 +76,40 @@ bgm.volume=0.8;
 bgm.addEventListener('ended', function(){ this.currentTime=0; this.play().catch(()=>{}); });
 
 let doorDone=!1;
-function showWelcome(){if(doorDone)return;doorDone=!0;home.classList.add('hide');setTimeout(()=>home.style.display='none',600);welcomeStage.classList.add('show');welcomeVideo.currentTime=0;welcomeVideo.muted=bgm.muted;welcomeVideo.play().catch(()=>{welcomeVideo.muted=!0;welcomeVideo.play()})}
+function showWelcome(){
+  if(doorDone)return;
+  doorDone=true;
+  home.classList.add('hide');
+  setTimeout(()=>home.style.display='none',600);
+  welcomeStage.classList.add('show');
+  welcomeVideo.currentTime=0;
+  welcomeVideo.muted = true; // ALWAYS MUTED - bgm continues
+  welcomeVideo.play().catch(()=>{});
+}
+  
 function showEvent(){if(window._shown)return;window._shown=!0;eventPage.classList.add('show');document.body.style.overflow='auto';document.documentElement.style.overflow='auto';void eventPage.offsetWidth;eventPage.classList.add('visible');setTimeout(initScratch,100);setTimeout(()=>welcomeStage.classList.add('fadeOut'),50);setTimeout(()=>welcomeStage.style.display='none',700)}
 
-// WORKING LOGIC FROM TEST FILE - AUDIO FIRST FOR SAFARI
 openBtn.addEventListener('click', function() {
+  // 1. AUDIO FIRST - THIS IS THE ONLY ONE WITH SOUND ON SAFARI
   bgm.currentTime = 0;
   bgm.muted = false;
-  var p1 = bgm.play();
-  if(p1) p1.catch(function(){});
+  bgm.volume = 1;
+  bgm.play().then(()=>{
+    console.log('bgm ok');
+  }).catch(e=>{
+    console.log('bgm blocked', e);
+  });
+
+  // 2. DOOR VIDEO ALWAYS MUTED ON SAFARI - so it doesn't fight audio
+  openBtn.style.opacity = '0';
+  openBtn.style.pointerEvents = 'none';
+  
+  doorVideo.muted = true; // IMPORTANT - keep muted
+  doorVideo.currentTime = 0;
+  doorVideo.play().catch(()=>{});
+
+  setTimeout(showWelcome, 4300);
+});
   
   openBtn.style.opacity = '0';
   openBtn.style.pointerEvents = 'none';
