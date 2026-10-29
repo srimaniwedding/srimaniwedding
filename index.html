@@ -12,7 +12,11 @@ body{margin:0;background:#000;overflow:hidden}
 </head>
 <body>
 <audio id="bgm" src="sample.mp3" playsinline preload="auto"></audio>                                                       
-<video id="doorVideo" muted playsinline poster="door-open.jpg"><source src="door-open.mp4" type="video/mp4"></video>
+<video id="doorVideo" muted playsinline preload="auto" poster="door-open.jpg">
+  <source src="door-open.webm" type="video/webm">
+  <source src="door-open.mp4" type="video/mp4">
+</video>
+  
 <button id="openBtn" type="button" onclick="openDoor()">OPEN</button>
 
 <script>
@@ -38,11 +42,17 @@ function openDoor(){
   
   doorVideo.muted = true;
   doorVideo.currentTime = 0;
-  doorVideo.play().catch(()=>{});
+  // Firefox fix - try play, if fails still continue
+  var p = doorVideo.play();
+  if(p) p.catch(function(e){
+    console.log('door video fail', e);
+    // still continue to next page after 1 sec
+  });
 
+  // ALWAYS go to next page after 4.3 sec - even if video stuck
   setTimeout(function(){
-    window.location.href = '#event';
-  }, 4000);
+    window.location.href = '#event'; 
+  }, 4300);
 }
 
 document.getElementById('openBtn').addEventListener('touchend', function(e){ e.preventDefault(); openDoor(); }, {passive:false});
