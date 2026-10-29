@@ -11,7 +11,7 @@ body{margin:0;background:#000;overflow:hidden}
 </style>
 </head>
 <body>
-<audio id="bgm" src="sample.mp3" playsinline preload="auto"></audio>
+<audio id="bgm" src="sample.mp3" playsinline preload="auto"></audio>                                                       
 <video id="doorVideo" muted playsinline poster="door-open.jpg"><source src="door-open.mp4" type="video/mp4"></video>
 <button id="openBtn" type="button" onclick="openDoor()">OPEN</button>
 
@@ -20,14 +20,19 @@ var bgm = document.getElementById('bgm');
 var doorVideo = document.getElementById('doorVideo');
 var opened = false;
 
+bgm.loop = true; // for Chrome/Firefox
+bgm.addEventListener('ended', function(){
+  this.currentTime = 0;
+  this.play().catch(()=>{});
+});
+
 function openDoor(){
   if(opened) return;
   opened = true;
-  console.log('OPEN CLICKED');
   bgm.muted = false;
   bgm.volume = 1;
   bgm.currentTime = 0;
-  bgm.play().then(()=>{console.log('audio ok')}).catch(e=>{console.log('audio fail',e); alert('Tap volume up + silent off')});
+  bgm.play().catch(()=>{});
   
   document.getElementById('openBtn').style.display='none';
   
@@ -35,13 +40,11 @@ function openDoor(){
   doorVideo.currentTime = 0;
   doorVideo.play().catch(()=>{});
 
-  // after 4 sec go to your welcome video - change this to your logic later
   setTimeout(function(){
-    window.location.href = '#event'; // placeholder - we will add welcome stage after this works
+    window.location.href = '#event';
   }, 4000);
 }
 
-// also add listeners as backup
 document.getElementById('openBtn').addEventListener('touchend', function(e){ e.preventDefault(); openDoor(); }, {passive:false});
 </script>
 </body>
