@@ -1,14 +1,99 @@
-
 <!DOCTYPE html>
-<html>
-<body style="background:#000;display:flex;justify-content:center;align-items:center;height:100vh">
-<button id="b" style="padding:30px;font-size:20px">TAP FOR AUDIO</button>
-<audio id="a" src="sample.mp3" loop></audio>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audio Test - Srimani</title>
+<style>
+body{margin:0;padding:20px;background:#111;color:#fff;font-family:Arial;text-align:center}
+button{padding:18px 28px;margin:12px;border-radius:30px;border:none;background:gold;font-weight:bold;font-size:18px;width:90%;max-width:320px}
+#log{background:#222;padding:12px;border-radius:10px;margin-top:20px;text-align:left;font-size:13px;white-space:pre-wrap;min-height:100px}
+.ok{color:#4cff4c}.fail{color:#ff6b6b}
+</style>
+</head>
+<body>
+<h2>Safari Audio Confidence Test</h2>
+<p>iPhone Settings to check: <br>1. Side silent switch = OFF <br>2. Volume buttons = MAX <br>3. Settings > Sounds > Ringer volume</p>
+
+<button id="btn1">1. TEST TAP TO PLAY</button>
+<button id="btn2">2. TEST LOOP (play 3 times)</button>
+<button id="btn3">3. TEST VOLUME</button>
+
+<div id="log">Log will appear here...</div>
+
+<audio id="bgm" src="sample.mp3" playsinline preload="auto"></audio>
+
 <script>
-document.getElementById('b').onclick = () => {
-  const a = document.getElementById('a');
-  a.play().then(()=>alert('Audio WORKS - check silent switch')).catch(e=>alert('Blocked: '+e.message));
+const logEl = document.getElementById('log');
+const bgm = document.getElementById('bgm');
+function log(msg, type){
+  const time = new Date().toLocaleTimeString();
+  logEl.innerHTML += `<span class="${type}">[${time}] ${msg}</span>\n`;
+  logEl.scrollTop = logEl.scrollHeight;
 }
+
+let playCount = 0;
+
+// Test 1: Basic Play
+document.getElementById('btn1').addEventListener('click', async function() {
+  logEl.innerHTML = '';
+  log('--- TEST 1: TAP TO PLAY ---');
+  bgm.currentTime = 0;
+  bgm.volume = 1.0;
+  bgm.muted = false;
+  try {
+    await bgm.play();
+    log('✅ play() SUCCESS - If you HEAR music, silent switch is OFF', 'ok');
+    log('If NO sound but success = iPhone is on silent / volume low', 'fail');
+    log('Check: Side button above volume keys', 'fail');
+  } catch(e) {
+    log('❌ play() BLOCKED: ' + e.message, 'fail');
+    log('Reason: ' + e.name, 'fail');
+  }
+});
+
+// Test 2: Loop
+document.getElementById('btn2').addEventListener('click', function() {
+  logEl.innerHTML = '';
+  log('--- TEST 2: LOOP TEST ---');
+  playCount = 0;
+  bgm.loop = false; // we test manual loop
+  bgm.currentTime = 0;
+  bgm.muted = false;
+  bgm.volume = 1;
+  
+  bgm.onended = function() {
+    playCount++;
+    log('Track ended, count: ' + playCount, 'ok');
+    if(playCount < 3){
+      this.currentTime = 0;
+      this.play().then(()=>log('Loop #' + (playCount+1) + ' started', 'ok')).catch(e=>log('Loop failed: '+e.message,'fail'));
+    } else {
+      log('✅ LOOP WORKS 3 times!', 'ok');
+      bgm.onended = null;
+    }
+  };
+  
+  bgm.play().then(()=>log('First play started, wait for end...','ok')).catch(e=>log('Play failed: '+e.message,'fail'));
+});
+
+// Test 3: Volume check
+document.getElementById('btn3').addEventListener('click', function() {
+  logEl.innerHTML = '';
+  log('--- TEST 3: VOLUME CHECK ---');
+  log('bgm.volume = ' + bgm.volume);
+  log('bgm.muted = ' + bgm.muted);
+  log('bgm.paused = ' + bgm.paused);
+  log('iPhone has 2 volumes: Ringer + Media');
+  log('Press side VOLUME UP button while playing');
+  bgm.currentTime = 0;
+  bgm.muted = false;
+  bgm.volume = 1;
+  bgm.play();
+  log('Now press VOLUME UP on side of iPhone', 'ok');
+});
+
+log('Ready. Tap Test 1 first.');
 </script>
 </body>
 </html>
