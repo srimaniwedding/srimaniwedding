@@ -18,7 +18,7 @@ body{min-height:100dvh}
 #eventPage{position:fixed;inset:0;width:100%;height:100dvh;overflow-y:auto;display:none;opacity:0;transition:opacity .6s;z-index:10}
 #eventPage.show{display:block}
 #eventPage.visible{opacity:1}
-.snap-section{min-height:100dvh;display:flex;align-items:center;justify-content:center;scroll-snap-align:start;padding:10px 12px}
+.snap-section{min-height:100dvh;display:flex;align-items:center;justify-content:center;scroll-snap-align:start;padding:10px 12px;flex-direction:column}
 .video-box{max-width:min(460px,90vw);margin:0 auto 28px;width:100%;text-align:center}
 .video-box video{width:100%;border-radius:12px;display:block}
 #video-wrapper{position:relative;width:100%;max-width:520px;margin:0 auto;padding:0 20px 16px}
@@ -29,132 +29,53 @@ body{min-height:100dvh}
 .floral-left{left:0}.floral-right{right:0}
 #sparkCanvas{position:fixed;inset:0;pointer-events:none;z-index:200}
 #clickLayer{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;background:transparent}
-#openBtn{width:120px;height:120px;border-radius:50%;border:3px solid #fff;background:radial-gradient(circle at 30% 30%,#ffefb0,#f5c542 40%,#b8912a 100%);font-weight:bold;color:#5a4210;cursor:pointer}
+#openBtn{width:120px;height:120px;border-radius:50%;border:3px solid #fff;background:radial-gradient(circle at 30% 30%,#ffefb0,#f5c542 40%,#b8912a 100%);font-weight:bold;color:#5a4210;cursor:pointer;display:block;pointer-events:auto}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-#rsvpSnap{
-  display:flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  padding: 20px 12px 40px !important;
-}
-#rsvp{
-  margin: 0 auto !important;
-  text-align:center;
-}
-#rsvp form{
-  margin-left:auto !important;
-  margin-right:auto !important;
-}
-
-/* Instagram Story style Swipe Up */
-.swipe-up-wrap{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-  margin-top:22px;
-  animation:bounce 1.6s infinite;
-}
-.swipe-line{
-  width:42px;
-  height:4px;
-  background:rgba(128,0,0,0.25);
-  border-radius:20px;
-}
-.swipe-arrow{
-  font-size:20px;
-  color:#800000;
-  line-height:1;
-}
-.swipe-text{
-  font-size:13px;
-  letter-spacing:2px;
-  color:#800000;
-  font-weight:bold;
-}
+.swipe-up-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:22px;animation:bounce 1.6s infinite}
+.swipe-line{width:42px;height:4px;background:rgba(128,0,0,0.25);border-radius:20px}
+.swipe-arrow{font-size:20px;color:#800000;line-height:1}
+.swipe-text{font-size:13px;letter-spacing:2px;color:#800000;font-weight:bold}
+#rsvpSnap{display:flex;align-items:center;justify-content:center;padding:20px 12px 40px}
+#rsvp{margin:0 auto;text-align:center}
+#rsvp form{margin-left:auto;margin-right:auto;text-align:left}
 </style>
 </head>
 <body>
 <audio id="bgm" src="sample.mp3" playsinline preload="auto"></audio>
 <button id="muteBtn" style="position:fixed;top:10px;right:10px;z-index:999;width:36px;height:36px;border-radius:50%;border:1px solid #D4AF37;background:rgba(0,0,0,.5);color:#D4AF37;cursor:pointer;display:none">🔊</button>
-
 <div id="home"><video id="doorVideo" muted playsinline preload="auto" poster="door-open.jpg"><source src="door-open.webm" type="video/webm"><source src="door-open.mp4" type="video/mp4"></video></div>
 <div id="welcomeStage"><div id="welcomeCrop"><video id="welcomeVideo" src="ketimelam.mp4" muted playsinline preload="metadata"></video></div></div>
-
 <div id="eventPage">
 <div class="floral-side floral-left"></div><div class="floral-side floral-right"></div><div class="petals" id="petals"></div>
 <div style="width:100%">
-<div class="snap-section" id="envelopeSection"><div id="video-wrapper">
+<div class="snap-section"><div id="video-wrapper">
 <video autoplay muted loop playsinline style="width:100%;margin:0 auto;display:block;transform:scale(1.18);transform-origin:center;border-radius:12px"><source src="envelope.mp4" type="video/mp4"></video>
-<div id="dateContainer" style="position:absolute;top:40%;left:47%;transform:translate(-50%,-50%);width:45%;aspect-ratio:300/270"><div style="position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;font-size:clamp(14px,3.5vw,20px);font-weight:bold;color:#FFFF00;padding-right:6%;padding-top:45%">11<sup style="font-size:.55em;vertical-align:super;position:relative;top:-4px;margin-left:1px;text-transform:lowercase">th</sup>&nbsp;Nov 2026</div><canvas id="scratch-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;touch-action:none"></canvas><canvas id="dissolve-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"></canvas></div>
-<div id="scratchHint" style="position:absolute;top:45%;left:47%;transform:translate(-50%,-50%);width:90%;pointer-events:none;text-align:center;line-height:1.4"><div style="font-size:13px;color:#F2EFE9;font-weight:bold;letter-spacing:1px">SCRATCH</div><div style="margin-top:6px;font-size:13px;color:#F2EFE9;font-weight:bold;letter-spacing:1px">HERE</div></div>
-<div id="countdownWrap" style="display:none;position:absolute;top:98%;left:50%;transform:translateX(-50%);text-align:center;opacity:0;transition:opacity .8s;width:100vw;max-width:520px;z-index:5">
-<p style="font-family:serif;color:#800000;font-size:15px;letter-spacing:1px;margin-bottom:10px;font-weight:bold">RECEPTION BEGINS IN</p><div style="display:flex;gap:10px;justify-content:center"><div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:12px 14px;min-width:62px"><div id="cdDays" style="font-size:22px;font-weight:bold">00</div><div style="font-size:10px;margin-top:4px">DAYS</div></div><div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:10px 14px;min-width:62px"><div id="cdHours" style="font-size:22px;font-weight:bold">00</div><div style="font-size:10px;margin-top:4px">HOURS</div></div><div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:10px 14px;min-width:62px"><div id="cdMins" style="font-size:22px;font-weight:bold">00</div><div style="font-size:10px;margin-top:4px">MINS</div></div></div>
+<div id="dateContainer" style="position:absolute;top:40%;left:47%;transform:translate(-50%,-50%);width:45%;aspect-ratio:300/270"><div style="position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;font-size:clamp(14px,3.5vw,20px);font-weight:bold;color:#FFFF00;padding-right:6%;padding-top:45%">11<sup style="font-size:.55em;vertical-align:super;position:relative;top:-4px;text-transform:lowercase">th</sup>&nbsp;Nov 2026</div><canvas id="scratch-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;touch-action:none"></canvas><canvas id="dissolve-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"></canvas></div>
+<div id="scratchHint" style="position:absolute;top:45%;left:47%;transform:translate(-50%,-50%);pointer-events:none;text-align:center"><div style="font-size:13px;color:#F2EFE9;font-weight:bold">SCRATCH HERE</div></div>
+<div id="countdownWrap" style="display:none;position:absolute;top:98%;left:50%;transform:translateX(-50%);text-align:center;opacity:0;transition:opacity .8s;width:100vw;max-width:520px">
+<p style="color:#800000;font-weight:bold">RECEPTION BEGINS IN</p><div style="display:flex;gap:10px;justify-content:center"><div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:12px 14px;min-width:62px"><div id="cdDays">00</div><div style="font-size:10px">DAYS</div></div><div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:10px 14px;min-width:62px"><div id="cdHours">00</div><div style="font-size:10px">HOURS</div></div><div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:10px 14px;min-width:62px"><div id="cdMins">00</div><div style="font-size:10px">MINS</div></div></div>
 <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Srimani+Wedding+Reception&dates=20261110T130000Z/20261110T160000Z&details=Reception+of+Srimani+at+Pon+Thamarai+Mahal%2C+Elakkadai&location=Pon+Thamarai+Mahal%2C+Elakkadai" target="_blank" style="display:inline-block;padding:10px 24px;background:#C19A6B;color:white;border-radius:30px;text-decoration:none;font-weight:bold;margin:10px 0">📅 Add to Calendar</a>
-<div class="swipe-up-wrap" id="swipeHint" style="display:none">
-  <div class="swipe-line"></div>
-  <div class="swipe-arrow">⌃</div>
-  <div class="swipe-text">SWIPE UP FOR MORE DETAILS</div>
-</div>
+<div class="swipe-up-wrap" id="swipeHint" style="display:none"><div class="swipe-line"></div><div class="swipe-arrow">⌃</div><div class="swipe-text">SWIPE UP FOR MORE DETAILS</div></div>
 </div></div></div>
-
-<div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="uppu-sakarai.mp4" type="video/mp4"></video>
-  <div class="swipe-up-wrap">
-  <div class="swipe-line"></div>
-  <div class="swipe-arrow">⌃</div>
-  <div class="swipe-text">SWIPE UP</div>
-</div>
-<div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="nalangu.mp4" type="video/mp4"></video>
-  <div class="swipe-up-wrap">
-  <div class="swipe-line"></div>
-  <div class="swipe-arrow">⌃</div>
-  <div class="swipe-text">SWIPE UP</div>
-</div>
-<div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="mappillai-azhaippu.mp4" type="video/mp4"></video>
-  <div class="swipe-up-wrap">
-  <div class="swipe-line"></div>
-  <div class="swipe-arrow">⌃</div>
-  <div class="swipe-text">SWIPE UP</div>
-</div>
-<div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="reception.mp4" type="video/mp4"></video>
-<div class="swipe-up-wrap">
-  <div class="swipe-line"></div>
-  <div class="swipe-arrow">⌃</div>
-  <div class="swipe-text">SWIPE UP</div>
-</div>
-<div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="muhurtham.mp4" type="video/mp4"></video>
-  
-  <div class="swipe-up-wrap">
-  <div class="swipe-line"></div>
-  <div class="swipe-arrow">⌃</div>
-  <div class="swipe-text">SWIPE UP</div>
-  </div>
-
-<div class="snap-section" id="locationSection"><div style="background:rgba(255,250,240,.92);padding:20px;border-radius:12px;box-shadow:0 4px 20px rgba(128,0,0,.08);text-align:center;width:92%;max-width:520px"><h3 style="font-family:serif;color:#800000;margin-bottom:15px">Location</h3><p style="margin-bottom:15px;font-size:16px">Pon Thamarai Mahal,<br>Erode to Muthur Main Road, Ellakadai,<br>Tamil Nadu 638109</p><div style="width:100%;height:380px;border-radius:12px;overflow:hidden;background:#eee"><iframe src="https://www.google.com/maps?q=Pon+Thamarai+Mahal,+Erode+to+Muthur+Main+Road,+Ellakadai,+Tamil+Nadu+638109&z=15&output=embed" style="width:100%;height:380px;border:0;display:block" loading="eager"></iframe></div><a href="https://www.google.com/maps/search/?api=1&query=Pon+Thamarai+Mahal+Erode+to+Muthur+Main+Road+Ellakadai+Tamil+Nadu+638109" target="_blank" style="display:inline-block;margin-top:15px;padding:12px 25px;background:#800000;color:#fff;text-decoration:none;border-radius:25px">📍 Get Directions</a><p style="margin-top:20px;color:#800000;font-size:16px;opacity:0.7;animation:bounce 2s infinite;text-align:center;">↓ Swipe up for RSVP</p></div></div>
-
-<div class="snap-section" id="rsvpSnap"><div id="rsvp" style="background:#FFFAF0;padding:20px;border-radius:12px;max-width:520px;margin:0 auto;width:100%;box-shadow:0 4px 20px rgba(128,0,0,.08)">
-<h3 style="font-family:serif;color:#800000;margin-bottom:15px;">We are so excited to celebrate this new chapter with you!</h3>
-<h2 style="color:#800000;margin-bottom:8px;">RSVP</h2>
-<p style="color:#800000;margin-bottom:20px;">Kindly respond by 6th Nov 2026</p>
-<form id="rsvpForm" autocomplete="off" style="max-width:340px;margin:0 auto;text-align:left"><label>Name *</label><br><input type="text" name="name" readonly onfocus="this.removeAttribute('readonly')" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc"><br><label>City *</label><br><input type="text" name="city" readonly onfocus="this.removeAttribute('readonly')" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc"><br><label>No. of Guests</label><br><input type="text" name="guests" inputmode="numeric" readonly onfocus="this.removeAttribute('readonly')" value="1" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc"><br><label>Events Attending</label><br><div style="margin:8px 0 16px"><label><input type="checkbox" name="events" value="Reception"> Reception (10 Nov)</label><br><label><input type="checkbox" name="events" value="Muhurtham"> Muhurtham (11 Nov)</label></div><label>Blessings / Message</label><br><textarea name="message" readonly onfocus="this.removeAttribute('readonly')" rows="3" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc"></textarea><br><button type="submit" style="width:75%;display:block;margin:5px auto;background:#800000;color:#fff;padding:12px 25px;border-radius:25px;border:none;cursor:pointer">Send RSVP</button><p id="rsvpMsg" style="text-align:center;margin-top:12px;display:none;color:green">Thank you! Your response has been recorded.</p></form>
-</div></div>
+<div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="uppu-sakarai.mp4" type="video/mp4"></video><div class="swipe-up-wrap"><div class="swipe-line"></div><div class="swipe-arrow">⌃</div><div class="swipe-text">SWIPE UP</div></div></div></div>
+<div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="nalangu.mp4" type="video/mp4"></video><div class="swipe-up-wrap"><div class="swipe-line"></div><div class="swipe-arrow">⌃</div><div class="swipe-text">SWIPE UP</div></div></div></div>
+<div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="mappillai-azhaippu.mp4" type="video/mp4"></video><div class="swipe-up-wrap"><div class="swipe-line"></div><div class="swipe-arrow">⌃</div><div class="swipe-text">SWIPE UP</div></div></div></div>
+<div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="reception.mp4" type="video/mp4"></video><div class="swipe-up-wrap"><div class="swipe-line"></div><div class="swipe-arrow">⌃</div><div class="swipe-text">SWIPE UP</div></div></div></div>
+<div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="muhurtham.mp4" type="video/mp4"></video><div class="swipe-up-wrap"><div class="swipe-line"></div><div class="swipe-arrow">⌃</div><div class="swipe-text">SWIPE UP</div></div></div></div>
+<div class="snap-section"><div style="background:rgba(255,250,240,.92);padding:20px;border-radius:12px;text-align:center;width:92%;max-width:520px"><h3 style="color:#800000">Location</h3><p>Pon Thamarai Mahal, Elakkadai</p><div style="width:100%;height:380px;border-radius:12px;overflow:hidden"><iframe src="https://www.google.com/maps?q=Pon+Thamarai+Mahal,+Elakkadai&z=15&output=embed" style="width:100%;height:380px;border:0"></iframe></div><a href="https://www.google.com/maps/search/?api=1&query=Pon+Thamarai+Mahal+Elakkadai" target="_blank" style="display:inline-block;margin-top:15px;padding:12px 25px;background:#800000;color:#fff;text-decoration:none;border-radius:25px">📍 Get Directions</a><div class="swipe-up-wrap"><div class="swipe-line"></div><div class="swipe-arrow">⌃</div><div class="swipe-text">SWIPE UP FOR RSVP</div></div></div></div>
+<div class="snap-section" id="rsvpSnap"><div id="rsvp" style="background:#FFFAF0;padding:20px;border-radius:12px;max-width:520px;width:100%;box-shadow:0 4px 20px rgba(128,0,0,.08)"><h3 style="font-family:serif;color:#800000;margin-bottom:15px;">We are so excited to celebrate this new chapter with you!</h3><h2 style="color:#800000;margin-bottom:8px;">RSVP</h2><p style="color:#800000;margin-bottom:20px;">Kindly respond by 6th Nov 2026</p><form id="rsvpForm" autocomplete="off" style="max-width:340px;margin:0 auto;text-align:left"><label>Name *</label><br><input type="text" name="name" readonly onfocus="this.removeAttribute('readonly')" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc"><br><label>City *</label><br><input type="text" name="city" readonly onfocus="this.removeAttribute('readonly')" required style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc"><br><label>No. of Guests</label><br><input type="text" name="guests" inputmode="numeric" readonly onfocus="this.removeAttribute('readonly')" value="1" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc"><br><label>Events Attending</label><br><div style="margin:8px 0 16px"><label><input type="checkbox" name="events" value="Reception"> Reception (10 Nov)</label><br><label><input type="checkbox" name="events" value="Muhurtham"> Muhurtham (11 Nov)</label></div><label>Blessings / Message</label><br><textarea name="message" readonly onfocus="this.removeAttribute('readonly')" rows="3" style="width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;border:1px solid #ccc"></textarea><br><button type="submit" style="width:75%;display:block;margin:5px auto;background:#800000;color:#fff;padding:12px 25px;border-radius:25px;border:none;cursor:pointer">Send RSVP</button><p id="rsvpMsg" style="text-align:center;margin-top:12px;display:none;color:green">Thank you! Your response has been recorded.</p></form></div></div>
 </div>
 </div>
-
 <div id="clickLayer"><button id="openBtn" type="button" onclick="openDoor()">OPEN</button></div>
 <canvas id="sparkCanvas"></canvas>
-
 <script>
 var bgm=document.getElementById('bgm'),doorVideo=document.getElementById('doorVideo'),welcomeStage=document.getElementById('welcomeStage'),welcomeVideo=document.getElementById('welcomeVideo'),home=document.getElementById('home'),eventPage=document.getElementById('eventPage'),clickLayer=document.getElementById('clickLayer');
-var doorDone=false,opened=false;
-bgm.volume=0.8; bgm.loop=true;
-bgm.addEventListener('ended',function(){this.currentTime=0;this.play().catch(function(){});});
+var doorDone=false,opened=false;bgm.volume=0.8;bgm.loop=true;bgm.addEventListener('ended',function(){this.currentTime=0;this.play().catch(function(){});});
 function showWelcome(){if(doorDone)return;doorDone=true;home.style.opacity='0';setTimeout(function(){home.style.display='none'},600);welcomeStage.style.display='block';setTimeout(function(){welcomeStage.classList.add('show')},10);welcomeVideo.currentTime=0;welcomeVideo.muted=true;welcomeVideo.play().catch(function(){});}
 function showEvent(){if(window._shown)return;window._shown=true;eventPage.classList.add('show');document.body.style.overflow='auto';document.documentElement.style.overflow='auto';eventPage.classList.add('visible');setTimeout(initScratch,100);setTimeout(function(){welcomeStage.classList.add('fadeOut')},50);setTimeout(function(){welcomeStage.style.display='none'},700);}
 function openDoor(){if(opened) return; opened=true; bgm.currentTime=0; bgm.muted=false; bgm.volume=1; bgm.play().catch(function(){}); clickLayer.style.display='none'; document.getElementById('muteBtn').style.display='block'; doorVideo.currentTime=0; doorVideo.muted=true; var p=doorVideo.play(); if(p) p.catch(function(){}); setTimeout(showWelcome,4300);}
 clickLayer.addEventListener('touchend',function(e){e.preventDefault();openDoor();},{passive:false});
-welcomeVideo.addEventListener('ended',showEvent);
-setTimeout(function(){if(!doorDone) showEvent();},12000);
+welcomeVideo.addEventListener('ended',showEvent);setTimeout(function(){if(!doorDone) showEvent();},12000);
 document.getElementById('muteBtn').addEventListener('click',function(e){e.stopPropagation();bgm.muted=!bgm.muted;this.textContent=bgm.muted?'🔇':'🔊';});
 const targetDate=new Date("2026-11-10T18:30:00+05:30").getTime();
 function updateCountdown(){var now=Date.now(),diff=targetDate-now;if(diff<=0) return;var d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4);var el=document.getElementById('cdDays'); if(el){el.innerText=String(d).padStart(2,'0');document.getElementById('cdHours').innerText=String(h).padStart(2,'0');document.getElementById('cdMins').innerText=String(m).padStart(2,'0');}}
