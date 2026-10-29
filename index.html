@@ -127,7 +127,31 @@ doorVideo.addEventListener('canplaythrough',()=>{doorVideo.classList.add('ready'
 doorVideo.addEventListener('loadeddata',()=>{doorVideo.classList.add('ready');openBtn.disabled=!1;openBtn.textContent='OPEN'},{once:true});
 setTimeout(()=>{if(openBtn.disabled){doorVideo.classList.add('ready');openBtn.disabled=!1;openBtn.textContent='OPEN'}},3000);doorVideo.load();
 let doorDone=!1;function showWelcome(){if(doorDone)return;doorDone=!0;home.classList.add('hide');setTimeout(()=>home.style.display='none',600);welcomeStage.classList.add('show');welcomeVideo.currentTime=0;welcomeVideo.muted=bgm.muted;welcomeVideo.play().catch(()=>{welcomeVideo.muted=!0;welcomeVideo.play()})}function showEvent(){if(window._shown)return;window._shown=!0;eventPage.classList.add('show');document.body.style.overflow='auto';document.documentElement.style.overflow='auto';void eventPage.offsetWidth;eventPage.classList.add('visible');setTimeout(initScratch,100);setTimeout(()=>welcomeStage.classList.add('fadeOut'),50);setTimeout(()=>welcomeStage.style.display='none',700)}
-openBtn.addEventListener('click',async()=>{unlockAudio();openBtn.disabled=!0;openBtn.style.opacity='0';try{doorVideo.muted=!0;await doorVideo.play();bgm.currentTime=0;await bgm.play().catch(()=>{});bgm.muted=!1;setTimeout(()=>doorVideo.muted=!1,150)}catch(e){doorVideo.play().catch(()=>{})}setTimeout(showWelcome,4300)});
+const openBtn = document.getElementById('open-button');
+const video = document.getElementById('your-video'); // door-open.mp4
+const bgMusic = document.getElementById('bgMusic');
+
+openBtn.addEventListener('click', async () => {
+  // 1. Unlock audio FIRST - this is most important for Safari
+  try {
+    bgMusic.currentTime = 0;
+    await bgMusic.play();
+  } catch(e) {
+    console.log('Audio blocked', e);
+  }
+
+  // 2. Then play video (must be muted or it will kill audio on Safari)
+  try {
+    video.muted = true; // IMPORTANT - video must be muted when audio is playing
+    video.playsInline = true;
+    await video.play();
+  } catch(e) {
+    console.log('Video blocked', e);
+  }
+
+  // 3. Hide open button etc.
+  openBtn.style.display = 'none';
+}); doorVideo.play();bgm.currentTime=0;await bgm.play().catch(()=>{});bgm.muted=!1;setTimeout(()=>doorVideo.muted=!1,150)}catch(e){doorVideo.play().catch(()=>{})}setTimeout(showWelcome,4300)});
 welcomeVideo.addEventListener('ended',showEvent);
 document.getElementById('muteBtn').addEventListener('click',function(e){e.stopPropagation();bgm.muted=!bgm.muted;this.textContent=bgm.muted?'🔇':'🔊';welcomeVideo.muted=bgm.muted});
 let canSwipe=!1,lastScroll=0;const eventPageEl=document.getElementById('eventPage');
