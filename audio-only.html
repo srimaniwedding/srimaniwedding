@@ -1,1 +1,14 @@
 
+<!DOCTYPE html>
+<html>
+<body style="background:#000;display:flex;justify-content:center;align-items:center;height:100vh">
+<button id="b" style="padding:30px;font-size:20px">TAP FOR AUDIO</button>
+<audio id="a" src="sample.mp3" loop></audio>
+<script>
+document.getElementById('b').onclick = () => {
+  const a = document.getElementById('a');
+  a.play().then(()=>alert('Audio WORKS - check silent switch')).catch(e=>alert('Blocked: '+e.message));
+}
+</script>
+</body>
+</html>
