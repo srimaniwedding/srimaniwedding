@@ -40,8 +40,9 @@ body{min-height:100dvh}
 </head>
 <body>
 <audio id="bgm" src="sample.mp3" playsinline preload="auto"></audio>
-<button id="muteBtn" style="position:fixed;top:10px;right:10px;z-index:9999;width:36px;height:36px;border-radius:50%;border:1px solid #D4AF37;background:rgba(0,0,0,.5);color:#D4AF37;cursor:pointer">🔊</button>
-<div id="home"><video id="doorVideo" muted playsinline preload="metadata" poster="door-open.jpg"><source src="door-open.webm" type="video/webm"><source src="door-open.mp4" type="video/mp4"></video><button id="openBtn" type="button">OPEN</button></div>
+<button id="openBtn" type="button" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:99999;width:120px;height:120px;border-radius:50%;border:none;background:radial-gradient(circle at 30% 30%,#ffefb0,#f5c542 40%,#b8912a 100%);font-weight:bold;color:#5a4210;cursor:pointer;touch-action:manipulation;">OPEN</button>
+<div id="home"><video id="doorVideo" muted playsinline preload="metadata" poster="door-open.jpg"><source src="door-open.webm" type="video/webm"><source src="door-open.mp4" type="video/mp4"></video></div>
+  
 <div id="welcomeStage"><div id="welcomeCrop"><video id="welcomeVideo" src="ketimelam.mp4" playsinline preload="metadata"></video></div></div>
 <div id="eventPage">
 <div class="floral-side floral-left"></div><div class="floral-side floral-right"></div><div class="petals" id="petals"></div>
@@ -90,16 +91,21 @@ function showWelcome(){
 function showEvent(){if(window._shown)return;window._shown=!0;eventPage.classList.add('show');document.body.style.overflow='auto';document.documentElement.style.overflow='auto';void eventPage.offsetWidth;eventPage.classList.add('visible');setTimeout(initScratch,100);setTimeout(()=>welcomeStage.classList.add('fadeOut'),50);setTimeout(()=>welcomeStage.style.display='none',700)}
 
 openBtn.addEventListener('click', function() {
-  // 1. AUDIO FIRST - THIS IS THE ONLY ONE WITH SOUND ON SAFARI
   bgm.currentTime = 0;
   bgm.muted = false;
   bgm.volume = 1;
-  bgm.play().then(()=>{
-    console.log('bgm ok');
-  }).catch(e=>{
-    console.log('bgm blocked', e);
-  });
+  bgm.play().catch(()=>{});
 
+  // hide this fixed button
+  openBtn.style.display = 'none';
+
+  doorVideo.muted = true;
+  doorVideo.currentTime = 0;
+  doorVideo.play().catch(()=>{});
+  setTimeout(showWelcome, 4300);
+});
+
+  
   // 2. DOOR VIDEO ALWAYS MUTED ON SAFARI - so it doesn't fight audio
   openBtn.style.opacity = '0';
   openBtn.style.pointerEvents = 'none';
