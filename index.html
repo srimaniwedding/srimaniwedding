@@ -49,6 +49,17 @@ body{min-height:100dvh}
 </style>
 </head>
 <body>
+  <!-- Put audio right after <body> -->
+<audio id="bgMusic" preload="auto" loop playsinline>
+  <source src="/sample.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Your video must have muted + playsinline -->
+<video id="door-video" muted playsinline preload="auto">
+  <source src="/door-open.mp4" type="video/mp4">
+</video>
+
+<button id="open-button">Open Invitation</button>
 <audio id="bgm" src="sample.mp3" loop preload="auto"></audio>
 <button id="muteBtn" style="position:fixed;top:10px;right:10px;z-index:9999;width:36px;height:36px;border-radius:50%;border:1px solid #D4AF37;background:rgba(0,0,0,.5);color:#D4AF37;cursor:pointer">🔊</button>
 <div id="home"><video id="doorVideo" muted playsinline preload="auto" poster="door-open.jpg"><source src="door-open.webm" type="video/webm"><source src="door-open.mp4" type="video/mp4"></video><button id="openBtn" disabled>Loading... 0%</button></div>
