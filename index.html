@@ -4,25 +4,22 @@
 <meta charset="UTF-8">
 <title>Srimani Wedding - 11th Nov 2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-<meta name="theme-color" content="#800000">
-<meta property="og:image" content="https://srimaniwedding.vercel.app/cover-v3.jpg?v=2">
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:#FFFAF0 url('wallpaper.jpg') repeat;background-size:380px auto;font-family:Arial,sans-serif;overflow:hidden}
 body{min-height:100dvh}
-#openBtn{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2147483647;width:115px;height:115px;border-radius:50%;border:3px solid #fff;background:radial-gradient(circle at 30% 30%,#ffefb0,#f5c542 40%,#b8912a 100%);font-weight:bold;color:#5a4210;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-#home{position:fixed;inset:0;z-index:30;background:#3a2a1a url('door-open.jpg') center/cover no-repeat;display:flex;align-items:center;justify-content:center}
+#home{position:fixed;inset:0;z-index:30;background:#3a2a1a url('door-open.jpg') center/cover no-repeat}
 #doorVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 #welcomeStage{position:fixed;inset:0;background:#000;z-index:20;display:none;opacity:0;transition:opacity .6s}
 #welcomeStage.show{display:block;opacity:1}
 #welcomeStage.fadeOut{opacity:0}
 #welcomeCrop{position:fixed;inset:0;width:100vw;height:100dvh;overflow:hidden}
 #welcomeCrop video{position:absolute;inset:0;width:100vw;height:100dvh;object-fit:cover}
-#eventPage{position:fixed;inset:0;width:100%;height:100dvh;overflow-y:auto;display:none;opacity:0;transition:opacity .6s;z-index:10;-webkit-overflow-scrolling:touch;scroll-snap-type:y mandatory;scroll-behavior:smooth}
+#eventPage{position:fixed;inset:0;width:100%;height:100dvh;overflow-y:auto;display:none;opacity:0;transition:opacity .6s;z-index:10}
 #eventPage.show{display:block}
 #eventPage.visible{opacity:1}
 .snap-section{min-height:100dvh;display:flex;align-items:center;justify-content:center;scroll-snap-align:start;padding:10px 12px}
-.video-box{max-width:min(460px,90vw);margin:0 auto 28px;width:100%}
+.video-box{max-width:min(460px,90vw);margin:0 auto;width:100%}
 .video-box video{width:100%;border-radius:12px;display:block}
 #video-wrapper{position:relative;width:100%;max-width:520px;margin:0 auto;padding:0 20px 16px}
 .petals{position:fixed;inset:0;pointer-events:none;z-index:100;overflow:hidden}
@@ -31,14 +28,13 @@ body{min-height:100dvh}
 .floral-side{position:fixed;top:0;width:22px;height:100vh;background:url('floral-border.png') repeat-y;background-size:contain;z-index:90;pointer-events:none}
 .floral-left{left:0}.floral-right{right:0}
 #sparkCanvas{position:fixed;inset:0;pointer-events:none;z-index:200}
-#scratchHint{transition:opacity .4s}
-#scratchHint.hide{opacity:0}
+#clickLayer{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;background:transparent}
+#openBtn{width:120px;height:120px;border-radius:50%;border:3px solid #fff;background:radial-gradient(circle at 30% 30%,#ffefb0,#f5c542 40%,#b8912a 100%);font-weight:bold;color:#5a4210;cursor:pointer;pointer-events:auto}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 </style>
 </head>
 <body>
 <audio id="bgm" src="sample.mp3" playsinline preload="auto"></audio>
-<button id="openBtn" type="button" onclick="openDoor()">OPEN</button>
 <button id="muteBtn" style="position:fixed;top:10px;right:10px;z-index:999;width:36px;height:36px;border-radius:50%;border:1px solid #D4AF37;background:rgba(0,0,0,.5);color:#D4AF37;cursor:pointer;display:none">🔊</button>
 
 <div id="home"><video id="doorVideo" muted playsinline preload="auto" poster="door-open.jpg"><source src="door-open.webm" type="video/webm"><source src="door-open.mp4" type="video/mp4"></video></div>
@@ -46,5 +42,46 @@ body{min-height:100dvh}
 
 <div id="eventPage">
 <div class="floral-side floral-left"></div><div class="floral-side floral-right"></div><div class="petals" id="petals"></div>
-<div class="main-wrapper">
-<div class="snap-section" id="envelopeSection"><div id
+<div style="width:100%">
+<div class="snap-section"><div id="video-wrapper">
+<video autoplay muted loop playsinline style="width:100%;margin:0 auto;display:block;transform:scale(1.18);transform-origin:center;border-radius:12px"><source src="envelope.mp4" type="video/mp4"></video>
+<div id="dateContainer" style="position:absolute;top:40%;left:47%;transform:translate(-50%,-50%);width:45%;aspect-ratio:300/270"><div style="position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;font-size:clamp(14px,3.5vw,20px);font-weight:bold;color:#FFFF00;padding-right:6%;padding-top:45%">11<sup style="font-size:.55em">th</sup>&nbsp;Nov 2026</div><canvas id="scratch-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;touch-action:none"></canvas><canvas id="dissolve-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"></canvas></div>
+<div id="scratchHint" style="position:absolute;top:45%;left:47%;transform:translate(-50%,-50%);pointer-events:none;text-align:center"><div style="font-size:13px;color:#F2EFE9;font-weight:bold">SCRATCH HERE</div></div>
+<div id="countdownWrap" style="display:none;position:absolute;top:98%;left:50%;transform:translateX(-50%);text-align:center;opacity:0;transition:opacity .8s;width:100vw;max-width:520px"><p style="color:#800000;font-weight:bold">RECEPTION BEGINS IN</p><div style="display:flex;gap:10px;justify-content:center"><div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:12px 14px;min-width:62px"><div id="cdDays">00</div><div>DAYS</div></div><div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:10px 14px;min-width:62px"><div id="cdHours">00</div><div>HOURS</div></div><div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:10px 14px;min-width:62px"><div id="cdMins">00</div><div>MINS</div></div></div></div>
+</div></div>
+<div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="uppu-sakarai.mp4" type="video/mp4"></video></div></div>
+<div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="nalangu.mp4" type="video/mp4"></video></div></div>
+<div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="mappillai-azhaippu.mp4" type="video/mp4"></video></div></div>
+<div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="reception.mp4" type="video/mp4"></video></div></div>
+<div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="muhurtham.mp4" type="video/mp4"></video></div></div>
+<div class="snap-section"><div style="background:rgba(255,250,240,.92);padding:20px;border-radius:12px;text-align:center;width:92%;max-width:520px"><h3 style="color:#800000">Location</h3><p>Pon Thamarai Mahal, Elakkadai</p><div style="width:100%;height:380px;border-radius:12px;overflow:hidden"><iframe src="https://www.google.com/maps?q=Pon+Thamarai+Mahal,+Elakkadai&z=15&output=embed" style="width:100%;height:380px;border:0"></iframe></div><a href="https://www.google.com/maps/search/?api=1&query=Pon+Thamarai+Mahal+Elakkadai" target="_blank" style="display:inline-block;margin-top:15px;padding:12px 25px;background:#800000;color:#fff;text-decoration:none;border-radius:25px">📍 Get Directions</a></div></div>
+<div class="snap-section"><div style="background:#FFFAF0;padding:20px;border-radius:12px;max-width:520px;margin:0 auto;width:100%;text-align:center"><h2 style="color:#800000">RSVP</h2><form id="rsvpForm" style="text-align:left;max-width:340px;margin:0 auto"><input type="text" name="name" placeholder="Name *" required style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc"><input type="text" name="city" placeholder="City *" required style="width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #ccc"><button type="submit" style="width:75%;display:block;margin:10px auto;background:#800000;color:#fff;padding:12px;border-radius:25px;border:none">Send RSVP</button><p id="rsvpMsg" style="display:none;color:green;text-align:center">Thank you!</p></form></div></div>
+</div>
+</div>
+
+<div id="clickLayer"><button id="openBtn" type="button" onclick="openDoor()">OPEN</button></div>
+<canvas id="sparkCanvas"></canvas>
+
+<script>
+var bgm=document.getElementById('bgm'),doorVideo=document.getElementById('doorVideo'),welcomeStage=document.getElementById('welcomeStage'),welcomeVideo=document.getElementById('welcomeVideo'),home=document.getElementById('home'),eventPage=document.getElementById('eventPage'),clickLayer=document.getElementById('clickLayer');
+var doorDone=false,opened=false;
+bgm.volume=0.8; bgm.loop=true;
+bgm.addEventListener('ended',function(){this.currentTime=0;this.play().catch(function(){});});
+function showWelcome(){if(doorDone)return;doorDone=true;home.style.opacity='0';setTimeout(function(){home.style.display='none'},600);welcomeStage.style.display='block';setTimeout(function(){welcomeStage.classList.add('show')},10);welcomeVideo.currentTime=0;welcomeVideo.muted=true;welcomeVideo.play().catch(function(){});}
+function showEvent(){if(window._shown)return;window._shown=true;eventPage.classList.add('show');document.body.style.overflow='auto';document.documentElement.style.overflow='auto';eventPage.classList.add('visible');setTimeout(initScratch,100);setTimeout(function(){welcomeStage.classList.add('fadeOut')},50);setTimeout(function(){welcomeStage.style.display='none'},700);}
+function openDoor(){if(opened) return; opened=true; bgm.currentTime=0; bgm.muted=false; bgm.volume=1; bgm.play().catch(function(){}); clickLayer.style.display='none'; document.getElementById('muteBtn').style.display='block'; doorVideo.currentTime=0; doorVideo.muted=true; var p=doorVideo.play(); if(p) p.catch(function(){}); setTimeout(showWelcome,4300);}
+clickLayer.addEventListener('touchend',function(e){e.preventDefault();openDoor();},{passive:false});
+welcomeVideo.addEventListener('ended',showEvent);
+setTimeout(function(){if(!doorDone) showEvent();},12000);
+document.getElementById('muteBtn').addEventListener('click',function(e){e.stopPropagation();bgm.muted=!bgm.muted;this.textContent=bgm.muted?'🔇':'🔊';});
+const targetDate=new Date("2026-11-10T18:30:00+05:30").getTime();
+function updateCountdown(){var now=Date.now(),diff=targetDate-now;if(diff<=0) return;var d=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4);var el=document.getElementById('cdDays'); if(el){el.innerText=String(d).padStart(2,'0');document.getElementById('cdHours').innerText=String(h).padStart(2,'0');document.getElementById('cdMins').innerText=String(m).padStart(2,'0');}}
+function showCountdown(){var w=document.getElementById('countdownWrap');if(!w) return;w.style.display='block';setTimeout(function(){w.style.opacity='1'},100);updateCountdown();setInterval(updateCountdown,60000)}
+let scratchInited=false;
+function initScratch(){if(scratchInited) return; scratchInited=true; const canvas=document.getElementById('scratch-card'),dCanvas=document.getElementById('dissolve-card'),sparkCanvas=document.getElementById('sparkCanvas'),hintEl=document.getElementById('scratchHint'),spCtx=sparkCanvas.getContext('2d'),dCtx=dCanvas.getContext('2d'),ctx=canvas.getContext('2d',{willReadFrequently:true}); function drawHeart(c,a){c.save();c.globalAlpha=a||1;c.fillStyle='#e60000';c.beginPath();c.moveTo(150,265);c.bezierCurveTo(5,155,25,20,150,75);c.bezierCurveTo(275,20,295,155,150,265);c.fill();c.restore()} drawHeart(ctx,1); let isDrawing=false,startTime=0,revealed=false,particles=[]; function resizeSpark(){sparkCanvas.width=innerWidth*2;sparkCanvas.height=innerHeight*2;sparkCanvas.style.width=innerWidth+'px';sparkCanvas.style.height=innerHeight+'px'} resizeSpark(); addEventListener('resize',resizeSpark); function getPos(e){const r=canvas.getBoundingClientRect();const x=(e.touches?e.touches[0].clientX:e.clientX),y=(e.touches?e.touches[0].clientY:e.clientY);return{x:(x-r.left)*(300/r.width),y:(y-r.top)*(270/r.height)}} function checkProgress(){const img=ctx.getImageData(0,0,300,270);let c=0,t=0;for(let i=3;i<img.data.length;i+=16){t++;if(img.data[i]<20)c++}return c/t} function createDissolve(){particles=[];for(let i=0;i<55;i++)particles.push({x:90+Math.random()*120,y:60+Math.random()*140,vx:(Math.random()-.5)*5,vy:-(Math.random()*6+1.5),size:Math.random()*8+5,a:1,rot:Math.random()*60-30,vr:(Math.random()-.5)*6,color:`hsl(${Math.random()*12+38},100%,${55+Math.random()*15}%)`,delay:Math.random()*.25})} function animateDissolve(){dCtx.clearRect(0,0,300,270);let alive=0;particles.forEach(p=>{if(p.delay>0){p.delay-=.02;alive++;return}p.x+=p.vx;p.y+=p.vy;p.vy+=.08;p.vx*=.99;p.a-=.011;p.rot+=p.vr*.1;if(p.a>0){alive++;dCtx.globalAlpha=p.a;dCtx.save();dCtx.translate(p.x,p.y);dCtx.rotate(p.rot*Math.PI/180);dCtx.fillStyle=p.color;dCtx.shadowBlur=8;dCtx.shadowColor=p.color;dCtx.beginPath();const s=p.size;dCtx.moveTo(0,s*.3);dCtx.bezierCurveTo(-s*.5,-s*.3,-s*.7,s*.2,0,s*.6);dCtx.bezierCurveTo(s*.7,s*.2,s*.5,-s*.3,0,s*.3);dCtx.fill();dCtx.restore()}});dCtx.globalAlpha=1;if(alive>0)requestAnimationFrame(animateDissolve)} function launchSparks(){const rect=canvas.getBoundingClientRect(),cx=rect.left+rect.width/2,cy=rect.top+rect.height/2,sparks=[];for(let i=0;i<200;i++){const ang=Math.random()*Math.PI*2,speed=Math.random()*16+4;sparks.push({x:cx,y:cy,vx:Math.cos(ang)*speed,vy:Math.sin(ang)*speed-Math.random()*2,life:1,decay:Math.random()*.014+.008,color:`hsl(${Math.random()*20+35},100%,60%)`,size:Math.random()*3+1.2})}const start=performance.now();function frame(now){const e=now-start;spCtx.clearRect(0,0,sparkCanvas.width,sparkCanvas.height);sparks.forEach(s=>{s.x+=s.vx;s.vx*=.99;s.y+=s.vy;s.vy+=.14;s.life-=s.decay;if(s.life>0){spCtx.globalAlpha=s.life;spCtx.fillStyle=s.color;spCtx.beginPath();spCtx.arc(s.x*2,s.y*2,s.size*s.life*3,0,Math.PI*2);spCtx.fill()}});if(e<2000)requestAnimationFrame(frame);else spCtx.clearRect(0,0,sparkCanvas.width,sparkCanvas.height)}requestAnimationFrame(frame)} function scratch(e){if(!isDrawing||revealed) return; e.preventDefault(); if(!startTime) startTime=Date.now(); const pos=getPos(e); ctx.globalCompositeOperation='destination-out'; ctx.beginPath(); ctx.arc(pos.x,pos.y,30,0,Math.PI*2); ctx.fill(); const prog=checkProgress(),elapsed=Date.now()-startTime; if((prog>.26&&elapsed>650)||elapsed>1700||prog>.42){if(!revealed){revealed=true;if(hintEl){hintEl.classList.add('hide');setTimeout(function(){hintEl.style.display='none'},400)}createDissolve();animateDissolve();let fade=1;const f=setInterval(function(){fade-=.1;ctx.clearRect(0,0,300,270);if(fade>0){drawHeart(ctx,fade)}else{clearInterval(f);ctx.clearRect(0,0,300,270)}},35);setTimeout(launchSparks,380);setTimeout(function(){showCountdown();},800)}}}
+canvas.addEventListener('mousedown',e=>{isDrawing=true;scratch(e)});canvas.addEventListener('mouseup',()=>isDrawing=false);canvas.addEventListener('mouseleave',()=>isDrawing=false);canvas.addEventListener('mousemove',scratch);canvas.addEventListener('touchstart',e=>{isDrawing=true;scratch(e)},{passive:false});canvas.addEventListener('touchmove',scratch,{passive:false});canvas.addEventListener('touchend',()=>isDrawing=false)}
+document.getElementById('rsvpForm').addEventListener('submit',async e=>{e.preventDefault();const f=new FormData(e.target),data={name:f.get('name'),city:f.get('city'),guests:f.get('guests'),events:f.getAll('events').join(', '),message:f.get('message')};await fetch('https://script.google.com/macros/s/AKfycbyQm0ewRL3ROpYSZ_wt_dB5rZyzcVa9PXbgpESqM_LBn50HJC5IlYgMW1qTo-M6G5yk0g/exec',{method:'POST',mode:'no-cors',body:JSON.stringify(data)});document.getElementById('rsvpMsg').style.display='block';e.target.reset();setTimeout(()=>document.getElementById('rsvpMsg').style.display='none',4000)});
+const petalEmojis=['🍂','🌼','🌸','🌹','🌺','🪷','🌻','🍁','🍃'],container=document.getElementById('petals');function createPetal(){const p=document.createElement('div');p.className='petal';p.innerText=petalEmojis[Math.floor(Math.random()*petalEmojis.length)];p.style.left=Math.random()*100+'vw';p.style.animationDuration=(9+Math.random()*3)+'s';p.style.fontSize=(16+Math.random()*8)+'px';container.appendChild(p);setTimeout(()=>p.remove(),12000)}setInterval(createPetal,3500);createPetal();
+</script>
+</body>
+</html>
