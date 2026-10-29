@@ -15,7 +15,8 @@ html,body{margin:0;padding:0;height:100%;background:#FFFAF0 url('wallpaper.jpg')
 body{min-height:100dvh}
 #home{position:fixed;inset:0;background:#3a2a1a url('door-open.jpg') center/cover no-repeat;z-index:30;transition:opacity .6s}
 #home.hide{opacity:0;pointer-events:none}
-#doorVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;background:#3a2a1a url('door-open.jpg') center/cover no-repeat}
+#doorVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;background:#3a2a1a url('door-open.jpg') center/cover no-repeat;pointer-events:none;z-index:1}
+#openBtn{z-index:10 !important;pointer-events:auto !important}
 #openBtn{position:absolute;top:52%;left:52%;transform:translate(-50%,-50%);width:110px;height:110px;border-radius:50%;border:none;cursor:pointer;z-index:2;background:radial-gradient(circle at 30% 30%,#ffefb0,#f5c542 40%,#b8912a 100%);font-weight:bold;color:#5a4210}
 #welcomeStage{position:fixed;inset:0;background:#000;z-index:20;display:none;opacity:0;transition:opacity .6s}
 #welcomeStage.show{display:flex;opacity:1}
