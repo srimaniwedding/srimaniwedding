@@ -48,26 +48,20 @@ body{min-height:100dvh}
 <div id="eventPage">
 <div class="floral-side floral-left"></div><div class="floral-side floral-right"></div><div class="petals" id="petals"></div>
 <div style="width:100%">
-  
 
-<div class="snap-section" style="align-items:center; padding-top:35px">
-  <div id="video-wrapper" style="margin-top:25px; padding-bottom:0">
-  
-<video autoplay muted loop playsinline style="width:100%;margin:0 auto;display:block;transform:scale(1.18);transform-origin:center top;border-radius:12px"><source src="envelope.mp4" type="video/mp4"></video>
-<div id="dateContainer" style="position:absolute;top:38%;left:47%;transform:translate(-50%,-50%);width:45%;aspect-ratio:300/270"><div style="position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;font-size:clamp(14px,3.5vw,20px);font-weight:bold;color:#FFFF00;padding-right:6%;padding-top:45%">11<sup style="font-size:.55em;vertical-align:super;position:relative;top:-4px;text-transform:lowercase">th</sup>&nbsp;Nov 2026</div><canvas id="scratch-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;touch-action:none"></canvas><canvas id="dissolve-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"></canvas></div>
-<div id="scratchHint" style="position:absolute;top:42%;left:47%;transform:translate(-50%,-50%);pointer-events:none;text-align:center"><div style="font-size:13px;color:#F2EFE9;font-weight:bold">SCRATCH <br>HERE</div></div>
+  <div class="snap-section" style="align-items:center; justify-content:flex-start; padding-top:6vh"><div id="video-wrapper" style="margin-top:0; padding-bottom:0">
+<video autoplay muted loop playsinline style="width:100%;margin:0 auto;display:block;transform:scale(1.10);transform-origin:center top;border-radius:12px"><source src="envelope.mp4" type="video/mp4"></video>
+<div id="dateContainer" style="position:absolute;top:40%;left:47%;transform:translate(-50%,-50%);width:45%;aspect-ratio:300/270"><div style="position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;font-size:clamp(14px,3.5vw,20px);font-weight:bold;color:#FFFF00;padding-right:6%;padding-top:45%">11<sup style="font-size:.55em;vertical-align:super;position:relative;top:-4px;text-transform:lowercase">th</sup>&nbsp;Nov 2026</div><canvas id="scratch-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;touch-action:none"></canvas><canvas id="dissolve-card" width="300" height="270" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"></canvas></div>
+<div id="scratchHint" style="position:absolute;top:45%;left:47%;transform:translate(-50%,-50%);pointer-events:none;text-align:center"><div style="font-size:13px;color:#F2EFE9;font-weight:bold">SCRATCH HERE</div></div>
 </div>
 
-<!-- Countdown + Calendar + Swipe now TOGETHER below video, always in screen -->
-<div id="countdownWrap" style="display:none;position:relative;top:auto;left:auto;transform:none;margin:12px auto 0;text-align:center;opacity:0;transition:opacity .8s;width:100%;max-width:520px">
-  
-<p style="color:#800000;font-weight:bold;margin:6px 0 8px">RECEPTION BEGINS IN</p>
+<div id="countdownWrap" style="display:none;position:relative;top:auto;left:auto;transform:none;margin:18px auto 0;text-align:center;opacity:0;transition:opacity .8s;width:100%;max-width:520px">
+<p style="color:#800000;font-weight:bold;margin:4px 0 8px">RECEPTION BEGINS IN</p>
 <div style="display:flex;gap:10px;justify-content:center"><div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:10px 14px;min-width:62px"><div id="cdDays">00</div><div style="font-size:10px">DAYS</div></div><div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:10px 14px;min-width:62px"><div id="cdHours">00</div><div style="font-size:10px">HOURS</div></div><div style="background:#800000;color:#FFFAF0;border-radius:12px;padding:10px 14px;min-width:62px"><div id="cdMins">00</div><div style="font-size:10px">MINS</div></div></div>
 <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Srimani+Wedding+Reception&dates=20261110T130000Z/20261110T160000Z&details=Reception+of+Srimani+at+Pon+Thamarai+Mahal%2C+Elakkadai&location=Pon+Thamarai+Mahal%2C+Elakkadai" target="_blank" style="display:inline-block;padding:9px 22px;background:#C19A6B;color:white;border-radius:30px;text-decoration:none;font-weight:bold;margin:8px 0">📅 Add to Calendar</a>
-<div class="swipe-up-wrap" id="swipeHint" style="display:none;margin-top:8px"><div class="swipe-line"></div><div class="swipe-arrow">⌃</div><div class="swipe-text">SWIPE UP FOR MORE DETAILS</div></div>
+<div class="swipe-up-wrap" id="swipeHint" style="display:none;margin-top:10px"><div class="swipe-line"></div><div class="swipe-arrow">⌃</div><div class="swipe-text">SWIPE UP FOR MORE DETAILS</div></div>
 </div>
-</div>
-
+  </div>
   
 <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="uppu-sakarai.mp4" type="video/mp4"></video><div class="swipe-up-wrap"><div class="swipe-line"></div><div class="swipe-arrow">⌃</div><div class="swipe-text">SWIPE UP</div></div></div></div>
 <div class="snap-section"><div class="video-box"><video autoplay muted loop playsinline><source src="nalangu.mp4" type="video/mp4"></video><div class="swipe-up-wrap"><div class="swipe-line"></div><div class="swipe-arrow">⌃</div><div class="swipe-text">SWIPE UP</div></div></div></div>
